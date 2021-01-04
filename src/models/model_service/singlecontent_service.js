@@ -1,0 +1,1 @@
+const contentModel = require('../singlecontent');
