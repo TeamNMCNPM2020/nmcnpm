@@ -19,7 +19,7 @@
 </style>
 {{/section}}
 
-<div id="topics" class="row mt-1 flex-nowrap custom-scrollbar overflow-auto">
+<div id="topics" class="row mt-1 flex-wrap">
   <a role="button" class="m-1 px-4 text-nowrap btn btn-dark font-weight-bold active" href="#">Tất cả</a>
   <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
   <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
@@ -48,7 +48,7 @@
         <h5 class="card-title mb-1">Tiêu đề bài viết</h5>
         <div class="d-flex flex-row flex-wrap">
           <small class="mr-1 font-weight-bold">
-            <a href="#">Chủ đề</a>
+            <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
           </small>
 
           <small class="ml-auto mx-2">
@@ -57,7 +57,7 @@
           </small>
           <small class="mr-1">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <a class="text-dark" href="/user/#">Người đăng</a>
+            <a class="text-dark" href="/user/#" style="z-index: 500; position: relative;">Người đăng</a>
           </small>
 
           <small class="mx-1">
@@ -65,6 +65,7 @@
             000000
           </small>
         </div>
+        <a href="#" class="streched-link"></a>
       </div>
     </div>
 

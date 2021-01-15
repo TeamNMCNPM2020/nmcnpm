@@ -1,0 +1,88 @@
+{{#section 'title'}}
+<title>Profile</title>
+{{/section}}
+{{#section 'css'}}
+<style>
+  {{!-- TODO: Select base on user type --}}
+.cover-background{
+  background: linear-gradient(90deg,white, white, #F41B35);
+}
+.cover-background{
+  background: linear-gradient(90deg,white, white, #FFBE00);
+}
+.cover-background{
+  background: linear-gradient(90deg,white, white, #00A94E);
+}
+.cover-background{
+  background: linear-gradient(90deg,white, white, #00A5BA);
+}
+.cover-background{
+  background: linear-gradient(90deg,white, white, #007DFF);
+}
+
+</style>
+{{/section}}
+
+{{!-- Cover --}}
+<div class="container-fluid p-3 mt-4 d-flex cover-background" style="min-height: 25vh;">
+  <div class="d-flex flex-column justify-content-end">
+    <h3 id="name" class="mb-0"><b>Nguyễn Văn A</b></h3>
+    <small id="username">username</small>
+    <p id="role-badge" class="mt-3 mb-0">
+      {{!-- TODO: Select base on user type --}}
+      <span class="badge badge-danger py-2 px-4">Admin</span>
+      <span class="badge badge-warning text-light py-2 px-4">Moderator</span>
+      <span class="badge badge-success py-2 px-4">Sinh viên</span>
+      <span class="badge badge-info py-2 px-4">Nhà tuyển dụng</span>
+      <span class="badge badge-primary py-2 px-4">Giới hàn lâm</span>
+    </p>
+  </div>
+  <div class="ml-auto d-flex flex-column justify-content-start">
+    <a name="" id="" class="btn btn-light" href="/u/edit" role="button">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-md-3 px-1 mb-2 order-md-12">
+      <div id="about-me" class="card">
+        <section class="card-body">
+          <h5 class="mb-1">Thông tin</h6>
+          <p class="mb-0"><small><b>Ngày sinh:</b> 09/09/2020</small></p>
+          <p class="mb-0"><small><b>Email:</b> abc@mail.com</small></p>
+          <p class="mt-1 mb-0"><small>Lorem isplum Lorem islum Lorem islum Lorem islum</small></p>
+        </section>
+      </div>
+    </div>
+    <div class="col-md-9 px-0 order-md-1">
+      <div class="card">
+        <div class="card-body p-3">
+          <form id="formFeedback" action="/course/{{course._id}}/feedback" method="post">
+            <textarea name="feedback" style="resize: none;" rows="1" class="form-control" type="text" placeholder="Bình luận"></textarea>
+            <div class="mt-1 d-flex justify-content-end">
+              <button class="btn btn-dark" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <section id="comments" class="mt-2">
+        <div class="card">
+          <div class="card-body">
+
+            {{!-- Each comment --}}
+            <div class="mb-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <p class="mb-0"><a href="/u/" class="text-dark"><b>Người đăng</b></a><small class="ml-1">09/09/2020 12:00PM</small></p>
+              </div>
+              <p class="mb-0"><small>Lorem islum Lorem islum Lorem islum Lorem islum Lorem islum</small></p>
+            </div>         
+
+          </div>
+        </div>
+      </section>
+    </div>
+    
+  </div>
+</div>
+

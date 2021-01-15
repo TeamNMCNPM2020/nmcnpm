@@ -17,5 +17,7 @@ module.exports = function(app) {
     });
   });
 
+  app.use('/u', require('../routes/sn.route'));
+  app.use('/account', require('../routes/account.route'));
   app.use('/p', express.static('./public'));
 }

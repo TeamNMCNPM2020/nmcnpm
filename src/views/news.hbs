@@ -26,18 +26,18 @@
   <div class="col-sm-7 p-1">
     <div class="card border-0">
       <div class="card-header p-0">
-        <img class="card-img" src="https://via.placeholder.com/600x400" alt="Feature content thumbnail 1">
+        <img class="card-img" src="https://dummyimage.com/600x400/dddddd/000000" alt="Feature content thumbnail 1">
       </div>
       <div class="card-body p-1 d-flex flex-column">
         <h5 class="card-title mb-1">Tiêu đề nổi bật 1</h5>
         <div class="mt-auto d-flex flex-row flex-wrap">
           <small class="mr-1 font-weight-bold">
-            <a href="#">Chủ đề</a>
+            <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
           </small>
 
           <small class="ml-auto mx-2">
             <i class="fa fa-refresh" aria-hidden="true"></i>
-            hh:mm dd/mm/yyy
+            dd/mm/yyyy hh:mm
           </small>
           <small class="mx-1">
             <i class="fa fa-comments" aria-hidden="true"></i>
@@ -45,6 +45,7 @@
           </small>
         </div>
       </div>
+      <a href="#" class="stretched-link"></a>
     </div>
   </div>
 
@@ -54,19 +55,19 @@
       <div class="col-sm-6 p-1">
         <div class="card border-0">
           <div class="card-header p-0">
-            <img class="card-img" src="https://via.placeholder.com/210x140" alt="Feature content thumbnail 2">
+            <img class="card-img" src="https://dummyimage.com/210x140/dddddd/000000" alt="Feature content thumbnail 2">
           </div>
           <div class="card-body p-1 d-flex flex-column">
             <h5 class="card-title mb-1">Tiêu đề nổi bật 2</h5>
             <div class="mt-auto">
               <small class="mr-1 font-weight-bold">
-                <a href="#">Chủ đề</a>
+                <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
               </small>
 
               <div class="d-flex justify-content-around">
                 <small>
                   <i class="fa fa-refresh" aria-hidden="true"></i>
-                  hh:mm dd/mm/yyy
+                  dd/mm/yyyy hh:mm
                 </small>
                 <small class="ml-auto">
                   <i class="fa fa-comments" aria-hidden="true"></i>
@@ -75,25 +76,26 @@
               </div>
             </div>
           </div>
+          <a href="#" class="stretched-link"></a>
         </div>
       </div>
 
       <div class="col-sm-6 p-1">
         <div class="card border-0">
           <div class="card-header p-0">
-            <img class="card-img" src="https://via.placeholder.com/210x140" alt="Feature content thumbnail 3">
+            <img class="card-img" src="https://dummyimage.com/210x140/dddddd/000000" alt="Feature content thumbnail 3">
           </div>
           <div class="card-body p-1 d-flex flex-column">
             <h5 class="card-title mb-1">Tiêu đề nổi bật 3</h5>
             <div class="mt-auto">
               <small class="mr-1 font-weight-bold">
-                <a href="#">Chủ đề</a>
+                <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
               </small>
 
               <div class="d-flex justify-content-around">
                 <small>
                   <i class="fa fa-refresh" aria-hidden="true"></i>
-                  hh:mm dd/mm/yyy
+                  dd/mm/yyyy hh:mm
                 </small>
                 <small class="ml-auto">
                   <i class="fa fa-comments" aria-hidden="true"></i>
@@ -108,7 +110,7 @@
       <div class="col-sm-6 p-1">
         <div class="card border-0">
           <div class="card-header p-0">
-            <img class="card-img" src="https://via.placeholder.com/210x140" alt="Feature content thumbnail 2">
+            <img class="card-img" src="https://dummyimage.com/210x140/dddddd/000000" alt="Feature content thumbnail 2">
           </div>
           <div class="card-body p-1 d-flex flex-column">
             <h5 class="card-title mb-1">Tiêu đề nổi bật 4</h5>
@@ -120,7 +122,7 @@
               <div class="d-flex justify-content-around">
                 <small>
                   <i class="fa fa-refresh" aria-hidden="true"></i>
-                  hh:mm dd/mm/yyy
+                  dd/mm/yyyy hh:mm
                 </small>
                 <small class="ml-auto">
                   <i class="fa fa-comments" aria-hidden="true"></i>
@@ -135,7 +137,7 @@
       <div class="col-sm-6 p-1">
         <div class="card border-0">
           <div class="card-header p-0">
-            <img class="card-img" src="https://via.placeholder.com/210x140" alt="Feature content thumbnail 2">
+            <img class="card-img" src="https://dummyimage.com/210x140/dddddd/000000" alt="Feature content thumbnail 2">
           </div>
           <div class="card-body p-1 d-flex flex-column">
             <h5 class="card-title mb-1">Tiêu đề nổi bật 5</h5>
@@ -147,7 +149,7 @@
               <div class="d-flex justify-content-around">
                 <small>
                   <i class="fa fa-refresh" aria-hidden="true"></i>
-                  hh:mm dd/mm/yyy
+                  dd/mm/yyyy hh:mm
                 </small>
                 <small class="ml-auto">
                   <i class="fa fa-comments" aria-hidden="true"></i>
@@ -167,7 +169,7 @@
 {{!-- Feature news contents --}}
 
 
-<div id="topics" class="row mt-1 flex-nowrap custom-scrollbar overflow-auto">
+<div id="topics" class="row mt-1 flex-wrap">
   <a role="button" class="m-1 px-4 text-nowrap btn btn-dark font-weight-bold active" href="#">Tất cả</a>
   <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
   <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
@@ -187,22 +189,24 @@
     {{!-- Each content row --}}
     <div class="card flex-row border-0 m-2">
       <div class="card-header p-0">
-        <img class="img-fluid" src="https://via.placeholder.com/210x140" alt="">
+        <img class="img-fluid" src="https://dummyimage.com/210x140/dddddd/000000" style="object-fit: cover;" alt="">
       </div>
       <div class="card-body ml-2 p-1 d-flex flex-column">
         <h5 class="card-title mb-1">Tiêu đề bài viết</h5>
         <div class="mt-auto d-flex flex-row flex-wrap">
+          {{#if news_active}}
           <small class="mr-1 font-weight-bold">
-            <a href="#">Chủ đề</a>
+            <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
           </small>
+          {{/if}}
 
           <small class="ml-auto mx-2">
             <i class="fa fa-refresh" aria-hidden="true"></i>
-            hh:mm dd/mm/yyy
+            dd/mm/yyyy hh:mm
           </small>
           <small class="mr-1">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <a class="text-dark" href="/user/#">Người đăng</a>
+            <a class="text-dark" href="/user/#" style="z-index: 500; position: relative;">Người đăng</a>
           </small>
 
           <small class="mx-1">
@@ -210,6 +214,7 @@
             000000
           </small>
         </div>
+        <a href="#" class="stretched-link"></a>
       </div>
     </div>
 
