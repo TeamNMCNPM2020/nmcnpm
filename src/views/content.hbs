@@ -1,5 +1,5 @@
 {{#section 'title'}}
-<title>(tên bài viết)</title>
+<title>{{content.title}}</title>
 {{/section}}
 
 <div class="col-md-9 container">
@@ -7,16 +7,16 @@
     <section id="content-header">
       <div class="d-flex justify-content-between">
         <p class="mb-0"><a href="/" class="text-dark"><b>Chuyên mục</b></a></p>
-        <small>dd/mm/yyyy hh:mm</small>
+        <small>{{content.postTime}}</small>
       </div>
-      <h3><b>Tiêu đề bài viết</b></h3>
+      <h3><b>{{content.title}}</b></h3>
       <div class="d-flex justify-content-between">
         <p class="mb-0"><a href="/" class="text-dark"><b>Nguyễn Văn A</b></a></p>
         <small><a href="/"><b>Chỉnh sửa</b></a></small>
       </div>
     </section>
     <section id="content-body" class="mt-2">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean convallis ante euismod velit consequat, a tempor ipsum consequat. Aliquam accumsan metus interdum sodales cursus. Quisque semper tortor vel sapien feugiat vestibulum. Nam viverra, arcu ut iaculis sodales, turpis turpis convallis eros, ac ultrices diam purus vitae erat. Proin ornare sollicitudin augue ac consectetur. Praesent ligula quam, semper ut porta fringilla, euismod eget libero. Nunc dapibus consequat neque, eu imperdiet leo venenatis ac. In a tellus sed nibh elementum varius. Ut euismod egestas massa, et vulputate risus facilisis ut. Suspendisse aliquam facilisis rhoncus. Cras ultrices velit et mauris bibendum, et posuere nulla aliquam. Donec non auctor tortor.</p>
+      {{{content.body}}}
     </section>
   </section>
 

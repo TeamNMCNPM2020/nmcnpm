@@ -72,21 +72,8 @@ let quill = new Quill('#editor-container', {
 $('#form').on('submit', function(e) {
   e.preventDefault();
 
-  const courseName = $('#txtCourseName').val();
-  if (courseName.length === 0) {
-    alert('Course name is required');
-    return;
-  }
-
-  const coursePrice = parseInt($('#numPrice').val());
-  if (!Number.isInteger(coursePrice)) {
-    //console.log(coursePrice);
-    alert('Please enter price correctly');
-    return;
-  }
-
   // Populate hidden form on submit
-  $('#txtFullDes').val(quill.root.innerHTML);
+  $('#txtContent').val(quill.root.innerHTML);
 
   $('#form').off('submit').submit();
 });
@@ -104,7 +91,7 @@ $('#form').on('submit', function(e) {
           class="form-control" 
           value="{{course.CourseName}}" 
           id="txtTitle" 
-          name="Title" 
+          name="title" 
           autofocus required>
     </div>
     <div class="form-group">
@@ -124,7 +111,7 @@ $('#form').on('submit', function(e) {
 
       </div>
       {{!-- where the description is actually put to send to server --}}
-      <input type="hidden" class="form-control" id="txtContent" name="ContentBody" required>
+      <input type="hidden" class="form-control" id="txtContent" name="body" required>
     </div>
     <button type="submit" class="btn btn-dark w-100 mt-4">Đăng</button>
   </form>

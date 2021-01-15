@@ -33,19 +33,20 @@
 </div>
 
 <div class="row mt-2">
-  <a role="button" class="m-1 w-100 btn btn-dark font-weight-bold" href="/forum/post">Đăng bài</a>
+  <a role="button" class="m-1 w-100 btn btn-dark font-weight-bold" href="/forum/new_content">Đăng bài</a>
 </div>
 
 <div class="my-2 row p-2" style="background: white;">
   <div class="col-12 p-0 min-vh-100">
 
     {{!-- Each content row --}}
+    {{#each contents}}
     <div class="card flex-row border-0 m-2">
       <div class="card-header p-0">
         <img class="img" src="#" alt="">
       </div>
       <div class="card-body p-1">
-        <h5 class="card-title mb-1">Tiêu đề bài viết</h5>
+        <h5 class="card-title mb-1">{{title}}</h5>
         <div class="d-flex flex-row flex-wrap">
           <small class="mr-1 font-weight-bold">
             <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
@@ -53,7 +54,7 @@
 
           <small class="ml-auto mx-2">
             <i class="fa fa-refresh" aria-hidden="true"></i>
-            hh:mm dd/mm/yyy
+            {{postTime}}
           </small>
           <small class="mr-1">
             <i class="fa fa-user" aria-hidden="true"></i>
@@ -65,9 +66,12 @@
             000000
           </small>
         </div>
-        <a href="#" class="streched-link"></a>
+        <a href="/c/{{_id}}" class="stretched-link"></a>
       </div>
     </div>
+    {{else}}
+    <p class="text-center">Không có dữ liệu</p>
+    {{/each}}
 
   </div>
 

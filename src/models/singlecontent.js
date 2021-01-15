@@ -10,7 +10,7 @@ const singleContentSchema = mongoose.Schema({
     ref: 'SingleTopic'
   },
   title: String,
-  detail: String,
+  body: String,
   postTime: String,
   author: {
     type: mongoose.Types.ObjectId,
@@ -18,6 +18,6 @@ const singleContentSchema = mongoose.Schema({
   }
 });
 
-const singleContent = mongoose.model('SingleContent',singleContentSchema)
+const singleContent = mongoose.model('contents',singleContentSchema)
 
 module.exports = singleContent;
