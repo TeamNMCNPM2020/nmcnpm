@@ -1,0 +1,48 @@
+{{#section 'title'}}
+<title>(tên bài viết)</title>
+{{/section}}
+
+<div class="col-md-9 container">
+  <section id="content" style="background: white;" class="mt-4 mb-2 px-4 py-3">
+    <section id="content-header">
+      <div class="d-flex justify-content-between">
+        <p class="mb-0"><a href="/" class="text-dark"><b>Chuyên mục</b></a></p>
+        <small>dd/mm/yyyy hh:mm</small>
+      </div>
+      <h3><b>Tiêu đề bài viết</b></h3>
+      <div class="d-flex justify-content-between">
+        <p class="mb-0"><a href="/" class="text-dark"><b>Nguyễn Văn A</b></a></p>
+        <small><a href="/"><b>Chỉnh sửa</b></a></small>
+      </div>
+    </section>
+    <section id="content-body" class="mt-2">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean convallis ante euismod velit consequat, a tempor ipsum consequat. Aliquam accumsan metus interdum sodales cursus. Quisque semper tortor vel sapien feugiat vestibulum. Nam viverra, arcu ut iaculis sodales, turpis turpis convallis eros, ac ultrices diam purus vitae erat. Proin ornare sollicitudin augue ac consectetur. Praesent ligula quam, semper ut porta fringilla, euismod eget libero. Nunc dapibus consequat neque, eu imperdiet leo venenatis ac. In a tellus sed nibh elementum varius. Ut euismod egestas massa, et vulputate risus facilisis ut. Suspendisse aliquam facilisis rhoncus. Cras ultrices velit et mauris bibendum, et posuere nulla aliquam. Donec non auctor tortor.</p>
+    </section>
+  </section>
+
+  <div class="card">
+    <div class="card-body p-3">
+      <form id="formComment" action="" method="post">
+        <textarea name="comment" style="resize: none;" rows="1" class="form-control" type="text" placeholder="Bình luận" required></textarea>
+        <div class="mt-1 d-flex justify-content-end">
+          <button class="btn btn-dark" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <section id="comments" class="mt-2">
+    <div class="card">
+      <div class="card-body">
+
+        {{!-- Each comment --}}
+        <div class="mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <p class="mb-0"><a href="/u/" class="text-dark"><b>Người đăng</b></a><small class="ml-1">09/09/2020 12:00PM</small></p>
+          </div>
+          <p class="mb-0"><small>Lorem islum Lorem islum Lorem islum Lorem islum Lorem islum</small></p>
+        </div>         
+
+      </div>
+    </div>
+  </section>
+</div>
