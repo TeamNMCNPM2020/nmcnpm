@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background: white;">
-  <a class="navbar-brand" href="/news">{{#if admin}}Admin{{else}}Moderator{{/if}}</a>
+  <a class="navbar-brand" href="">{{#if admin}}Admin{{else}}Moderator{{/if}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -15,6 +15,7 @@
       <li class="nav-item">
         <a class="nav-link {{#if oppor_active}}active{{/if}}" href="/mod?type=2">Cơ hội</a>
       </li>
+      {{!-- Nếu user session là admin thì sẽ bật cái flag admin --}}
       {{#if admin}}
       <li class="nav-item">
         <a class="nav-link {{#if oppor_active}}active{{/if}}" href="/admin">Tài khoản</a>

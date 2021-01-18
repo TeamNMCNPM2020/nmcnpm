@@ -1,0 +1,141 @@
+{{#section 'title'}}
+<title>{{#if is_new}}TK mới{{else}}Chỉnh sửa TK{{/if}}</title>
+{{/section}}
+{{#section 'js'}}
+<script>
+{{!-- Form validation --}}
+$('#formReset').on('submit', function(e) {
+  e.preventDefault();
+
+  const txtPassword = $('#txtPassword').val();
+  const txtConfirm = $('#txtPasswordConfirm').val();
+  if (txtPassword !== txtConfirm) {
+    alert('Password does not match');
+  }
+  else {
+    $('#formReset').off('submit').submit();
+  }
+});
+</script>
+{{/section}}
+
+<div class="container min-vh-100">
+  <div style="height: 10vh;" class="d-flex align-items-center">
+    <a class="btn btn-primary" href="/admin" role="button">
+      <i class="fa fa-chevron-left" aria-hidden="true"></i> Trở về</a>
+    <h3 class="ml-4 mb-0">{{#if is_new}}Tài khoản mới{{else}}Chỉnh sửa tài khoản{{/if}}</h3>
+  </div>
+  {{#if message}}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {{/if}}
+	<div class="row">
+    
+    <div class="col-md-12">
+      <form id="formEdit" method="POST" action="" style="background: white;" class="row">
+        <div class="card-body col-md-8">
+          <h5 class="card-title">Thông tin tài khoản</h5>
+          {{#unless is_new}}
+          <input type="hidden" name="_id" value="{{account._id}}" required>
+          {{/unless}}
+          <div class="form-group">
+            <label for="txtUserName"><b>Tên đăng nhập</b></label>
+            <input type="text" class="form-control" id="txtUserName" name="username" placeholder="Tên đăng nhập" value="{{account.UserName}}" required>
+          </div>
+          <div class="form-group">
+            <label for="txtName"><b>Họ tên</b></label>
+            <input type="text" class="form-control" id="txtName" name="Name" placeholder="Họ tên" value="{{account.Name}}" required>
+          </div>
+
+          {{#if is_new}}
+          <div class="form-group">
+            <label for="txtPassword"><b>Default Password (minlength = 6)</b></label>
+            <input type="password" class="form-control" id="txtPassword" name="Password" minlength="6" placeholder="Enter Password for this account" required>
+          </div>
+          <div class="form-group">
+            <label for="txtPasswordConfirm"><b>Confirm password</b></label>
+            <input type="password" class="form-control" id="txtPasswordConfirm" placeholder="Reconfirm Password" required>
+          </div>
+          {{/if}}
+
+
+          <div class="form-group">
+            <label for="txtContact"><b>Liên lạc</b></label>
+            <input type="text" class="form-control" id="txtContact" name="Contact" placeholder="Liên lạc" value="{{account.Contact}}">
+          </div>
+          <div class="form-group">
+            <label for="DOB"><b>Ngày sinh</b></label>
+            <input type="date" class="form-control" id="DOB" name="DOB" placeholder="Ngày sinh" value="{{account.DOB}}">
+          </div>
+        </div>
+        <div class="card-body col-md-4">
+          <div class="card bg-primary text-light">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="Permission" class="font-weight-bold">Loại người dùng</label>
+                <select class="form-control" id="Permission" name="Permission" required>  
+                  <option value="0">Admin</option>
+                  <option value="1">Mod</option>
+                  <option value="2">Sinh viên</option>
+                  <option value="3">Nhà tuyển dụng</option>
+                  <option value="4">Giới hàn lâm</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="card-body">
+          <button type="submit" class="btn btn-outline-success w-100 mt-2">
+            {{#if is_new}}
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Thêm
+            {{else}}
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Cập nhật
+            {{/if}}
+        </button>
+        </div>
+      </form>
+    </div>
+
+    {{#unless is_new}}
+    <div class="col-md-6 mt-2">
+      <div class="row" style="background: white;">
+        <form id="formReset" method="POST" action="/admin/reset" class="col-md-12">
+          <div class="card-body">
+            <h5 class="card-title">Đổi mật khẩu</h5>
+            <input type="hidden" name="_id" value="{{account._id}}" required>
+            <div class="form-group">
+              <label for="txtOldPassword"><b>Mật khẩu</b></label>
+              <input type="password" class="form-control" id="txtOldPassword" 
+                      name="currentPassword" placeholder="Mật khẩu hiện tại"
+                      required>
+            </div>
+            <div class="form-group">
+              <label for="txtPassword"><b>Mật khẩu mới</b></label>
+              <input type="password" class="form-control" id="txtPassword" 
+                      name="Password" placeholder="Mật khẩu mới"
+                      required>
+            </div>
+            <div class="form-group">
+              <label for="txtPasswordConfirm"><b>Xác nhận</b></label>
+              <input type="password" class="form-control" id="txtPasswordConfirm" 
+                      placeholder="Xác nhận lại mật khẩu" 
+                      required>
+            </div>
+            <button type="submit" class="btn btn-outline-danger">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+                Đổi mật khẩu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    {{/unless}}
+  </div>
+</div>
