@@ -187,12 +187,13 @@
   <div class="col-12 p-0 min-vh-100">
 
     {{!-- Each content row --}}
+    {{#each contents}}
     <div class="card flex-row border-0 m-2">
       <div class="card-header p-0">
         <img class="img-fluid" src="https://dummyimage.com/210x140/dddddd/000000" style="object-fit: cover;" alt="">
       </div>
       <div class="card-body ml-2 p-1 d-flex flex-column">
-        <h5 class="card-title mb-1">Tiêu đề bài viết</h5>
+        <h5 class="card-title mb-1">{{title}}</h5>
         <div class="mt-auto d-flex flex-row flex-wrap">
           {{#if news_active}}
           <small class="mr-1 font-weight-bold">
@@ -202,11 +203,11 @@
 
           <small class="ml-auto mx-2">
             <i class="fa fa-refresh" aria-hidden="true"></i>
-            dd/mm/yyyy hh:mm
+            {{postTime}}
           </small>
           <small class="mr-1">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <a class="text-dark" href="/user/#" style="z-index: 500; position: relative;">Người đăng</a>
+            <a class="text-dark" href="/u/#" style="z-index: 500; position: relative;">Người đăng</a>
           </small>
 
           <small class="mx-1">
@@ -214,9 +215,12 @@
             000000
           </small>
         </div>
-        <a href="#" class="stretched-link"></a>
+        <a href="/c/{{_id}}" class="stretched-link"></a>
       </div>
     </div>
+    {{else}}
+    <p class="text-center mt-2">Không có dữ liệu</p>
+    {{/each}}
 
   </div>
 

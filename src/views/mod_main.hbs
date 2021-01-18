@@ -6,8 +6,8 @@
 {{/section}}
 
 <div class="container-fluid min-vh-100">
-<div class="row mt-4">
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 mt-4">
     <div class="card">
       <div class="card-header bg-dark text-light">
         <div class="d-flex justify-content-between align-items-center mb-2">
@@ -19,9 +19,9 @@
 
         {{#unless oppor_active}}
         <form class="mx-auto my-auto w-100" action="">
+          <input type="hidden" name="type" value="{{#if news_active}}1{{/if}}{{#if forum_active}}0{{/if}}{{#if oppor_active}}2{{/if}}">
           <div class="input-group">
-            <input type="hidden" name="type" value="{{#if news_active}}0{{/if}}{{#if forum_active}}1{{/if}}{{#if oppor_active}}2{{/if}}">
-            <select class="form-control" type="text" placeholder="Search" aria-label="Search" name="topic">
+            <select class="form-control" name="topic">
               <option value="0">Tất cả loại</option>
               {{!-- Lọc bài viết theo topic ở đây --}}
               {{#each this.topics}}  
@@ -41,7 +41,7 @@
         {{#each contents}}
         <div class="card flex-row border-0 m-2">
           <div class="card-body p-1">
-            <h5 class="card-title mb-1">Tiêu đề{{title}}</h5>
+            <h5 class="card-title mb-1">{{title}}</h5>
             <div class="d-flex flex-row flex-wrap">
               <small class="mr-1 font-weight-bold">
                 <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
@@ -79,7 +79,7 @@
   </div>
 
 
-  <div class="col-md-3">
+  <div class="col-md-3 mt-4">
     <div class="card">
       <div class="card-body">
         {{#if news_active}}<h2>Tin tức</h2>{{/if}}

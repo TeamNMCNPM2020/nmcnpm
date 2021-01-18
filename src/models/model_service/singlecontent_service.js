@@ -8,7 +8,7 @@ module.exports = {
       title: entity.title,
       body: entity.body,
       postTime: datetime.ISODateNow(),
-      typeID: null,
+      typeID: entity.typeID,
       topicID: null,
       author: null
     }
@@ -57,8 +57,6 @@ module.exports = {
         '_id': mongoose.Types.ObjectId(contentID)
       }}
     ]);
-
-    console.log(result);
 
     if (result !== []) {
       const content = result[0];

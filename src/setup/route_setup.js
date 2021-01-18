@@ -1,11 +1,7 @@
 const express = require('express');
 
 module.exports = function(app) {
-  app.get('/news', function(req, res) {
-    res.render('news.hbs', {
-      news_active: true,
-    });
-  });
+  app.use('/news', require('../routes/news.route'));
   
   app.get('/opportunities', function(req, res) {
     res.render('news.hbs', {

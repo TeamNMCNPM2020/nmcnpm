@@ -1,17 +1,21 @@
 const router = require('express').Router();
-const { singleByID } = require('../../models/model_service/singlecontent_service');
 const serviceContent = require('../../models/model_service/singlecontent_service');
 
 router.get('/', async function(req, res) {
   //type : loại news/ diễn đàn/ cơ hội
-  const contentType = (+req.query.type) || 0;
+  let contentType = (+req.query.type) || 0;
   const selected_topic = (+req.query.topic) || 0;
-  const resultContent = await serviceContent.listContent();
+
+  if (contentType < 0 || contentType > 2) {
+    contentType = 1;
+  }
+
+  const resultContent = await serviceContent.listContent(contentType);
 
   res.render('mod_main', {
     layout: 'special_user_layout.hbs',
-    news_active: contentType === 0,
-    forum_active: contentType === 1,
+    forum_active: contentType === 0,
+    news_active: contentType === 1,
     oppor_active: contentType === 2,
     contents: resultContent,
   });
