@@ -8,22 +8,23 @@
   <div class="card mt-2">
     <div class="card-body">
       <form id="form" method="POST">
-        <input type="hidden" value="" id="txtContentId" name="_id">
+        <input type="hidden" value="{{content._id}}" id="txtContentId" name="_id">
         <div class="form-group">
           <label for="txtTitle">Tiêu đề</label>
           <input 
               type="text" 
               class="form-control" 
-              value="{{course.CourseName}}" 
+              value="{{content.title}}" 
               id="txtTitle" 
               name="title" 
               autofocus required>
         </div>
         <div class="form-group">
           <label for="contentType">Loại bài viết</label>
-          <select class="form-control" id="contentType" name="type" required>
-            <option value="0">Tin tức</option>
-            <option value="2">Cơ hội</option>
+          <select class="form-control" id="contentType" name="typeID" required>
+            <option value="0" {{#if (equals content.typeID 0)}}selected{{/if}}>Diễn đàn</option>
+            <option value="1" {{#if (equals content.typeID 1)}}selected{{/if}}>Tin tức</option>
+            <option value="2" {{#if (equals content.typeID 2)}}selected{{/if}}>Cơ hội</option>
           </select>
         </div>
         <div class="form-group">
@@ -41,7 +42,7 @@
           <label for="txtContent">Nội dung</label>
           <div id="editor-container">
             {{!-- where the user enter the description --}}
-
+            {{{content.body}}}
           </div>
           {{!-- where the description is actually put to send to server --}}
           <input type="hidden" class="form-control" id="txtContent" name="body" required>

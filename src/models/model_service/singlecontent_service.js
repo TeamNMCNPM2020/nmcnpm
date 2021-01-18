@@ -13,10 +13,23 @@ module.exports = {
       author: null
     }
 
-    return result = await new SingleContent(content).save();
+    return await new SingleContent(content).save();
   },
-  listContent: async function() {
+  patch: async function(entity) {
+    const condition = entity._id;
+    delete entity._id;
+
+    return await SingleContent.updateOne({
+      '_id': condition,
+    }, entity);
+  },
+  //type: 0-Forum, 1-News, 2-Oppor 
+  listContent: async function(type = 0) {
     const result = await SingleContent.aggregate([
+      { $match: {
+          'typeID': type,
+        }
+      },
       { $project: {
         '_id': '$_id',
         'title': '$title',

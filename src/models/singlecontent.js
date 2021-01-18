@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const singleContentSchema = mongoose.Schema({
-  typeID: {
-    type: mongoose.Types.ObjectId,
-    ref: 'ContentType'
-  },
+  typeID: Number,   //0: Forum, 1: News, 2: Job
   topicID: {
     type: mongoose.Types.ObjectId,
     ref: 'SingleTopic'
