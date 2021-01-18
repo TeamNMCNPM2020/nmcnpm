@@ -1,4 +1,5 @@
 const SingleContent = require('../singlecontent');
+const SingleTopic = require('../singletopic');
 const mongoose = require('mongoose');
 const datetime = require('../../utils/datetime');
 
@@ -36,10 +37,20 @@ module.exports = {
           'postTime': -1
         }
       },
+      { $lookup: {
+          from: SingleTopic.collection.collectionName,
+          localField: 'topicID',
+          foreignField: '_id',
+          as: 'topic'
+        }
+      },
+      { $unwind: {path: '$topic', preserveNullAndEmptyArrays: true}},
       { $project: {
         '_id': '$_id',
         'title': '$title',
         'postTime': '$postTime',
+        'topicID': '$topicID',
+        'topicName': '$topic.topicName'
       }},
       
     ]);
@@ -62,10 +73,29 @@ module.exports = {
     const result = await SingleContent.aggregate([
       { $match: {
         '_id': mongoose.Types.ObjectId(contentID)
-      }}
+        }
+      },
+      { $lookup: {
+        from: SingleTopic.collection.collectionName,
+        localField: 'topicID',
+        foreignField: '_id',
+        as: 'topic'
+        }
+      },
+      { $unwind: {path: '$topic', preserveNullAndEmptyArrays: true}},
+      { $project: {
+        '_id': '$_id',
+        'title': '$title',
+        'postTime': '$postTime',
+        'body': '$body',
+        'topicID': '$topicID',
+        'topicName': '$topic.topicName',
+        'typeID': '$typeID'
+        }
+      }
     ]);
 
-    if (result !== []) {
+    if (result.length > 0) {
       const content = result[0];
       content.postTime = datetime.FormatDate(content.postTime);
       return content;

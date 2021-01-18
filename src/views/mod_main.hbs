@@ -24,8 +24,8 @@
             <select class="form-control" name="topic">
               <option value="0">Tất cả loại</option>
               {{!-- Lọc bài viết theo topic ở đây --}}
-              {{#each this.topics}}  
-              <option value="{{_id}}" {{#if selected}}selected{{/if}}>{{name}}</option>
+              {{#each topics}}  
+              <option value="{{_id}}" {{#if selected}}selected{{/if}}>{{topicName}}</option>
               {{/each}}
             </select>
             <span class="input-group-append">
@@ -43,9 +43,11 @@
           <div class="card-body p-1">
             <h5 class="card-title mb-1">{{title}}</h5>
             <div class="d-flex flex-row flex-wrap">
+              {{#unless ../oppor_active}}
               <small class="mr-1 font-weight-bold">
-                <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
+                <a href="?type={{#if ../news_active}}1{{/if}}{{#if ../forum_active}}0{{/if}}&topic={{topicID}}" style="z-index: 500; position: relative;">{{topicName}}</a>
               </small>
+              {{/unless}}
 
               <small class="ml-auto mx-2">
                 <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -96,10 +98,10 @@
         </thead>
         <tbody>
           <tr>
-            <form class="form-inline" action="/mod/category/add" method="post">
+            <form class="form-inline" action="/mod/topic/new" method="post">
               <td class="p-1">
                 <div class="form-group mb-1">
-                  <input type="text" class="form-control" id="txtTopicName" name="Name" placeholder="Thêm một chủ đề mới">
+                  <input type="text" class="form-control" id="txtTopicName" name="topicName" placeholder="Thêm một chủ đề mới">
                 </div>             
               </td>
               <td class="p-1 text-center">
@@ -112,31 +114,32 @@
           </tr>
           
           <tr>
-            {{!-- {{#each topics}} --}}
+            {{#each topics}}
             {{!-- Mỗi topic có trong db --}}
             <form class="formEdit" method="POST" action="">
-            <td><input type="text" class="form-control overflow-hidden hidden{{_id}}" id="txtCatName" name="CatName" value="{{CatName}}" readonly></td>
+            <input type="hidden" name="_id" value="{{_id}}">
+            <td><input type="text" class="form-control overflow-hidden hidden{{_id}}" id="txtTopicName" name="topicName" value="{{topicName}}" readonly></td>
             {{!-- Button edit --}}
             <td class="text-right">
               <a class="btn btn-outline-primary toggler{{_id}}" href="javascript:enableEdit('{{_id}}')" role="button" title="Edit Category">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <button class="btn btn-outline-success hidden{{_id}}" type="submit" formaction="/mod/topics/patch" hidden>
+              <button class="btn btn-outline-success hidden{{_id}}" type="submit" formaction="/mod/topic/patch" hidden>
                 <i class="fa fa-check" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-outline-danger hidden{{_id}}" type="submit" formaction="/mod/topics/del" hidden>
+              <button class="btn btn-outline-danger hidden{{_id}}" type="submit" formaction="/mod/topic/del" hidden>
                 <i class="fa fa-trash" aria-hidden="true"></i>
               </button>
             </td>
             </form>
           </tr>
-          {{!-- {{else}}
+          {{else}}
           <tr class="bg-light">
             <td colspan="3" class="text-center">
-              No data
+              Không có chủ đề
             </td>
           </tr>
-          {{/each}} --}}
+          {{/each}}
 
         </tbody>
       </table>

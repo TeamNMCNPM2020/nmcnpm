@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const serviceContent = require('../../models/model_service/singlecontent_service');
+const serviceTopic = require('../../models/model_service/singletopic_service')
 
 router.get('/', async function(req, res) {
   //type : loại news/ diễn đàn/ cơ hội
@@ -11,6 +12,9 @@ router.get('/', async function(req, res) {
   }
 
   const resultContent = await serviceContent.listContent(contentType);
+  const resultTopic = await serviceTopic.list();
+
+  //console.log(resultTopic);
 
   res.render('mod_main', {
     layout: 'special_user_layout.hbs',
@@ -18,14 +22,17 @@ router.get('/', async function(req, res) {
     news_active: contentType === 1,
     oppor_active: contentType === 2,
     contents: resultContent,
+    topics: resultTopic
   });
 });
 
 //Hiển thị trang đăng bài viết mới
-router.get('/new', function(req, res) {
+router.get('/new', async function(req, res) {
+  const resultTopic = await serviceTopic.list();
 
   res.render('mod_content_management', {
     layout: 'special_user_layout.hbs',
+    topics: resultTopic,
     is_new: true
   });
 });
@@ -34,7 +41,7 @@ router.get('/new', function(req, res) {
 router.post('/new', async function(req, res) {
   const result = await serviceContent.add(req.body);
 
-  console.log(result);
+  //console.log(result);
 
   if (result._id) {
     res.redirect(`/mod/edit/${result._id}`);
@@ -50,10 +57,20 @@ router.post('/new', async function(req, res) {
 router.get('/edit/:id', async function(req, res) {
   const contentID = req.params.id;
   const resultContent = await serviceContent.singleByID(contentID);
+  const resultTopic = await serviceTopic.list();
+
+  resultTopic.map(topic => {  
+    if (resultContent.topicID) {//block null
+      topic.selected = resultContent.topicID.toString() == topic._id.toString();
+    }
+    
+    return topic;
+  });
 
   res.render('mod_content_management', {
     layout: 'special_user_layout.hbs',
     content: resultContent,
+    topics: resultTopic,
   });
 });
 
@@ -63,5 +80,40 @@ router.post('/edit/:id', async function(req, res) {
 
   res.redirect(req.headers.referer);
 });
+
+
+
+//TOPIC POST PROCESSING-----------------------------------------
+
+//Tạo chủ đề mới
+router.post('/topic/new', async function(req, res) {
+  const entity = {
+    'topicName': req.body.topicName
+  }
+
+  const result = await serviceTopic.add(entity);
+  res.redirect(req.headers.referer);
+});
+//Chỉnh sửa tên chủ đề
+router.post('/topic/patch', async function(req, res) {
+  const entity = {
+    '_id': req.body._id,
+    'topicName': req.body.topicName
+  }
+  // console.log(req.body);
+  // console.log(entity);
+
+  const result = await serviceTopic.patch(entity);
+  res.redirect(req.headers.referer);
+});
+//Xóa chủ đề
+router.post('/topic/del', async function(req, res) {
+  const topicID = req.body._id;
+  // console.log(req.body);
+  // console.log(topicID);
+
+  const result = await serviceTopic.del(topicID);
+  res.redirect(req.headers.referer);
+})
 
 module.exports = router;

@@ -195,9 +195,9 @@
       <div class="card-body ml-2 p-1 d-flex flex-column">
         <h5 class="card-title mb-1">{{title}}</h5>
         <div class="mt-auto d-flex flex-row flex-wrap">
-          {{#if news_active}}
+          {{#if ../news_active}}
           <small class="mr-1 font-weight-bold">
-            <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
+            <a href="?topic={{topicID}}" style="z-index: 500; position: relative;">{{topicName}}</a>
           </small>
           {{/if}}
 

@@ -30,15 +30,13 @@
             <option value="2" {{#if (equals content.typeID 2)}}selected{{/if}}>Cơ hội</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="contentTopicGroup" {{#if (equals content.typeID 2)}}hidden{{/if}}>
           <label for="contentTopic">Chủ đề</label>
           {{!-- Từng loại topic --}}
-          <select class="form-control" id="contentTopic" name="topic" required>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <select class="form-control" id="contentTopic" name="topicID" required>
+            {{#each topics}}
+            <option value="{{_id}}" {{#if selected}}selected{{/if}}>{{topicName}}</option>
+            {{/each}}
           </select>
         </div>
         <div class="form-group">
@@ -113,7 +111,18 @@ $('#imgTitle').fileinput({
   allowedFileExtensions: ['jpg'],
 });
 </script>
-
+<script>
+  $('select[name="typeID"]').change(function(){
+    //val() returns string :(
+    if($(this).val() == 2) {
+      console.log('a')
+      $('#contentTopicGroup').prop('hidden',true);
+    } 
+    else {
+      $('#contentTopicGroup').prop('hidden',false);
+    }
+  });
+</script>
 {{!-- Quilljs WYSIWYG editor--}}
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script>  {{!-- Init --}}
