@@ -1,3 +1,161 @@
 {{#section 'title'}}
 <title>Moderator</title>
 {{/section}}
+
+{{#section 'css'}}
+{{/section}}
+
+<div class="container-fluid min-vh-100">
+<div class="row mt-4">
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          Bài viết
+          <a class="btn btn-primary" href="/mod/new" role="button">
+            <p class="mb-0"><i class="fa fa-plus" aria-hidden="true"></i> Bài viết mới</p class="mb-0">
+          </a>
+        </div>
+
+        {{#unless oppor_active}}
+        <form class="mx-auto my-auto w-100" action="">
+          <div class="input-group">
+            <input type="hidden" name="type" value="{{#if news_active}}0{{/if}}{{#if forum_active}}1{{/if}}{{#if oppor_active}}2{{/if}}">
+            <select class="form-control" type="text" placeholder="Search" aria-label="Search" name="topic">
+              <option value="0">Tất cả loại</option>
+              {{!-- Lọc bài viết theo topic ở đây --}}
+              {{#each this.topics}}  
+              <option value="{{_id}}" {{#if selected}}selected{{/if}}>{{name}}</option>
+              {{/each}}
+            </select>
+            <span class="input-group-append">
+              <button class="btn btn-success" type="submit">Filter</button>
+            </span>
+          </div>
+        </form>
+        {{/unless}}
+      </div>
+      <div class="card-body p-0 overflow-auto my-1 p-1">
+
+        {{!-- Each content row --}}
+        {{!-- {{#each contents}} --}}
+        <div class="card flex-row border-0 m-2">
+          <div class="card-body p-1">
+            <h5 class="card-title mb-1">Tiêu đề{{title}}</h5>
+            <div class="d-flex flex-row flex-wrap">
+              <small class="mr-1 font-weight-bold">
+                <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
+              </small>
+
+              <small class="ml-auto mx-2">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+                {{postTime}}
+              </small>
+              <small class="mr-1">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <a class="text-dark" href="/user/#" style="z-index: 500; position: relative;">Người đăng</a>
+              </small>
+
+              <small class="mx-1">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+                000000
+              </small>
+            </div>
+            <a href="/c/{{_id}}" class="stretched-link"></a>
+          </div>
+          <div class="d-flex align-items-center">
+            {{!-- Link dẫn tới mod quản lý comment bài viết --}}
+            <a style="z-index: 500; position: relative;" class="btn btn-primary" href="/mod/edit/" role="button">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        {{!-- {{else}}
+        <p class="text-center">Không có dữ liệu</p>
+        {{/each}} --}}
+        
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        {{#if news_active}}<h2>Tin tức</h2>{{/if}}
+        {{#if forum_active}}<h2>Diễn đàn</h2>{{/if}}
+        {{#if oppor_active}}<h2>Cơ hội</h2>{{/if}}
+      </div>
+      {{#unless oppor_active}}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Các chủ đề</th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <form class="form-inline" action="/mod/category/add" method="post">
+              <td class="p-1">
+                <div class="form-group mb-1">
+                  <input type="text" class="form-control" id="txtTopicName" name="Name" placeholder="Thêm một chủ đề mới">
+                </div>             
+              </td>
+              <td class="p-1 text-center">
+                <button class="btn btn-outline-success w-100" type="submit">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                  Thêm
+                </button>
+              </td>
+            </form>
+          </tr>
+          
+          <tr>
+            {{!-- {{#each topics}} --}}
+            {{!-- Mỗi topic có trong db --}}
+            <form class="formEdit" method="POST" action="">
+            <td><input type="text" class="form-control overflow-hidden hidden{{_id}}" id="txtCatName" name="CatName" value="{{CatName}}" readonly></td>
+            {{!-- Button edit --}}
+            <td class="text-right">
+              <a class="btn btn-outline-primary toggler{{_id}}" href="javascript:enableEdit('{{_id}}')" role="button" title="Edit Category">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <button class="btn btn-outline-success hidden{{_id}}" type="submit" formaction="/mod/topics/patch" hidden>
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-outline-danger hidden{{_id}}" type="submit" formaction="/mod/topics/del" hidden>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </td>
+            </form>
+          </tr>
+          {{!-- {{else}}
+          <tr class="bg-light">
+            <td colspan="3" class="text-center">
+              No data
+            </td>
+          </tr>
+          {{/each}} --}}
+
+        </tbody>
+      </table>
+      {{/unless}}
+    </div>
+  </div>
+</div>
+
+</div>
+{{!-- container fluid --}}
+
+
+
+{{#section 'js'}}
+<script>
+  function enableEdit(id) {
+    $(`.btn.toggler${id}`).attr('hidden', true);
+    $(`.btn.hidden${id}`).removeAttr('hidden');
+    $(`input.hidden${id}`).removeAttr('readonly');
+  }
+</script>
+{{/section}}

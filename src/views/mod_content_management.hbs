@@ -1,0 +1,152 @@
+{{#section 'title'}}
+<title>{{#if is_new}}Bài viết mới{{/if}}</title>
+{{/section}}
+
+{{!-- Giao diện quản lý bài viết & đăng bài viết mới --}}
+<div class="container-fluid min-vh-100">
+
+  <div class="card mt-2">
+    <div class="card-body">
+      <form id="form" method="POST">
+        <input type="hidden" value="" id="txtContentId" name="_id">
+        <div class="form-group">
+          <label for="txtTitle">Tiêu đề</label>
+          <input 
+              type="text" 
+              class="form-control" 
+              value="{{course.CourseName}}" 
+              id="txtTitle" 
+              name="title" 
+              autofocus required>
+        </div>
+        <div class="form-group">
+          <label for="contentType">Loại bài viết</label>
+          <select class="form-control" id="contentType" name="type" required>
+            <option value="0">Tin tức</option>
+            <option value="2">Cơ hội</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contentTopic">Chủ đề</label>
+          {{!-- Từng loại topic --}}
+          <select class="form-control" id="contentTopic" name="topic" required>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="txtContent">Nội dung</label>
+          <div id="editor-container">
+            {{!-- where the user enter the description --}}
+
+          </div>
+          {{!-- where the description is actually put to send to server --}}
+          <input type="hidden" class="form-control" id="txtContent" name="body" required>
+        </div>
+        <button type="submit" class="btn btn-dark w-100 mt-4">Đăng</button>
+      </form>
+    </div>
+  </div>
+
+  {{#if admin}}
+  <div class="card">
+    <div class="card-body">
+      <form action="/teacher/course/img" method="post" enctype="multipart/form-data">
+        <input type="hidden" value="{{course._id}}" id="txtCourseID" name="_id"> 
+        <div class="form-group">
+          <label for="imgTitle">Hình đại diện</label>
+          <input id="imgTitle" name="imgTitle" type="file" class="file" accept=".jpg">
+        </div>
+        <button type="submit" class="btn btn-dark w-100 mt-4">
+          <i class="fa fa-upload" aria-hidden="true"></i>
+          Tải hình
+        </button>
+      </form>
+    </div>
+  </div>
+  {{/if}}
+
+
+</div>
+
+
+{{#section "css"}}
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<style>
+#editor-container, #editor-container-curriculum {
+  height: 300px;
+}
+</style>
+
+{{!-- hightlight.js theme --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/androidstudio.min.css" integrity="sha512-fQ4lpATmIhg+bWdSwJNk8wzrQTQUQXFhlD/h3U1ApeI4xrIByljrsUQKHetxejU0JWwJuIGZmHknQOWqj4FMSA==" crossorigin="anonymous" />
+
+{{!-- KaTex for formula formating, script have to at head else won't work --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/css/fileinput.min.css">
+{{/section}}
+
+
+{{#section "js"}}
+{{!-- hightlight.js for Code formating --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+
+{{!-- Bootstrap fileinput --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/themes/fa/theme.min.js"></script>
+<script>
+$('#imgTitle').fileinput({
+  theme: 'fa',
+  dropZoneEnabled: false,
+  showUpload: false,
+  required: true,
+  maxFileSize: 512,
+  allowedFileExtensions: ['jpg'],
+});
+</script>
+
+{{!-- Quilljs WYSIWYG editor--}}
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>  {{!-- Init --}}
+let quill = new Quill('#editor-container', {
+  theme: 'snow',
+  placeholder: 'Nội dung bài viết',
+  modules: {
+    syntax: true, //use highlight.js code format
+    toolbar: [
+      [
+        { 'font': [] }, 
+        { 'header': [false, 1, 2, 3, 4, 5, 6] }, 
+      ],
+      [{ 'align': [] }],
+
+      ['bold', 'italic', 'underline', 'strike'],    //Text style
+      [{ 'script': 'sub'}, { 'script': 'super' }],  //Superscript/Subscript
+
+      [{ 'color': [] }, { 'background': [] }],      //Text color & background color
+      ['blockquote', 'code-block', 'formula'],
+      ['link', 'image', 'video'],
+
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'indent': '-1'}, { 'indent': '+1' }],      //Outdent/Indent
+
+    ],
+  }
+});
+
+{{!-- Form validation --}}
+$('#form').on('submit', function(e) {
+  e.preventDefault();
+
+  // Populate hidden form on submit
+  $('#txtContent').val(quill.root.innerHTML);
+
+  $('#form').off('submit').submit();
+});
+</script>
+{{/section}}
