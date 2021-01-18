@@ -170,16 +170,10 @@
 
 
 <div id="topics" class="row mt-1 flex-wrap">
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-dark font-weight-bold active" href="#">Tất cả</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
-  <a role="button" class="m-1 px-4 text-nowrap btn btn-light" href="#">Chuyên mục 1</a>
+  <a role="button" class="m-1 px-4 text-nowrap btn {{#if all}}font-weight-bold btn-dark active{{else}}btn-light{{/if}}" href="?topic=0">Tất cả</a>
+  {{#each topics}}
+  <a role="button" class="m-1 px-4 text-nowrap btn {{#if selected}}font-weight-bold btn-dark active{{else}}btn-light{{/if}}" href="?topic={{_id}}">{{topicName}}</a>
+  {{/each}}
 </div>
 {{/if}}
 

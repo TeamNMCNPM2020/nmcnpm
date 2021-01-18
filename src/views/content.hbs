@@ -6,7 +6,16 @@
   <section id="content" style="background: white;" class="mt-4 mb-2 px-4 py-3">
     <section id="content-header">
       <div class="d-flex justify-content-between">
-        <p class="mb-0"><a href="/" class="text-dark"><b>Chuyên mục</b></a></p>
+        
+        <p class="mb-0">
+          {{#if (equals content.typeID 0)}}<a href="/forum">Diễn đàn</a> <span>/</span>{{/if}}
+          {{#if (equals content.typeID 1)}}<a href="/news">Tin tức</a> <span>/</span>{{/if}}
+          {{#if (equals content.typeID 2)}}<a href="/opportunities">Cơ hội</a> <span>/</span>{{/if}}
+          {{#unless (equals content.typeID 2)}}
+          <a href="/{{#if (equals content.typeID 0)}}/forum{{/if}}{{#if (equals content.typeID 1)}}/news{{/if}}?topic={{content.topicID}}"><b>{{content.topicName}}</b></a>
+          {{/unless}}
+        </p>
+        
         <small>{{content.postTime}}</small>
       </div>
       <h3><b>{{content.title}}</b></h3>

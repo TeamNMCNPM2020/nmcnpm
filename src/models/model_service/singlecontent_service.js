@@ -27,11 +27,23 @@ module.exports = {
     });
   },
   //type: 0-Forum, 1-News, 2-Oppor 
-  listContent: async function(type = 0) {
+  listContent: async function(type = 0, topicID = 0) {
+    let matchObj = {
+      'typeID': type,
+    };
+
+    if (topicID != 0) {
+      if (
+        !mongoose.Types.ObjectId.isValid(topicID)
+        || topicID !== String(new mongoose.Types.ObjectId(topicID))
+      ) {//Filter non valid ids
+        return null;
+      }
+      matchObj.topicID = mongoose.Types.ObjectId(topicID);
+    }
+
     const result = await SingleContent.aggregate([
-      { $match: {
-          'typeID': type,
-        }
+      { $match: matchObj
       },
       { $sort: {
           'postTime': -1
