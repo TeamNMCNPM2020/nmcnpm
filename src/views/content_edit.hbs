@@ -83,20 +83,22 @@ $('#form').on('submit', function(e) {
   <div class="card mt-2">
     <div class="card-body">
   <form id="form" method="POST">
-    <input type="hidden" value="" id="txtContentId" name="_id">
+    <input type="hidden" value="{{content._id}}" id="txtContentId" name="_id">
+    <input type="hidden" value="{{content.typeID}}" id="TypeID" name="typeID">
     <div class="form-group">
       <label for="txtTitle">Tiêu đề</label>
       <input 
           type="text" 
           class="form-control" 
-          value="{{course.CourseName}}" 
+          value="{{content.title}}" 
           id="txtTitle" 
           name="title" 
           autofocus required>
     </div>
     <div class="form-group">
-      <label for="selectCat">Chuyên mục</label>
-      <select class="form-control" id="selectCat" name="topic" required>
+      <label for="topics">Chuyên mục</label>
+      {{!-- TODO: change topic to topicID --}}
+      <select class="form-control" id="topics" name="topic" required>
         <option>1</option>
         <option>2</option>
         <option>3</option>
@@ -108,7 +110,7 @@ $('#form').on('submit', function(e) {
       <label for="txtContent">Nội dung</label>
       <div id="editor-container">
         {{!-- where the user enter the description --}}
-
+        {{{content.body}}}
       </div>
       {{!-- where the description is actually put to send to server --}}
       <input type="hidden" class="form-control" id="txtContent" name="body" required>

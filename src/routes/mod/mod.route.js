@@ -31,13 +31,17 @@ router.get('/new', function(req, res) {
 });
 
 //Xử lý Đăng bài viết mới
-router.post('/new', function(req, res) {
-  console.log(req.body);
+router.post('/new', async function(req, res) {
+  const result = await serviceContent.add(req.body);
 
-  res.render('mod_content_management', {
-    layout: 'special_user_layout.hbs',
-    is_new: true
-  });
+  console.log(result);
+
+  if (result._id) {
+    res.redirect(`/mod/edit/${result._id}`);
+    return;
+  }
+
+  res.redirect('/mod/new?err=true');
 });
 
 

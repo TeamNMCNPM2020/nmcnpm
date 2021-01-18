@@ -21,7 +21,9 @@ module.exports = {
 
     return await SingleContent.updateOne({
       '_id': condition,
-    }, entity);
+    }, {
+      $set: entity
+    });
   },
   //type: 0-Forum, 1-News, 2-Oppor 
   listContent: async function(type = 0) {
@@ -30,11 +32,16 @@ module.exports = {
           'typeID': type,
         }
       },
+      { $sort: {
+          'postTime': -1
+        }
+      },
       { $project: {
         '_id': '$_id',
         'title': '$title',
         'postTime': '$postTime',
-      }}
+      }},
+      
     ]);
 
     //Convert ISO string to usable format
