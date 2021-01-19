@@ -52,7 +52,7 @@
           <div class="d-flex align-items-center justify-content-between">
             <p class="mb-0"><a href="/u/{{author._id}}" class="text-dark"><b>{{author.FullName}}</b></a><small class="ml-1">{{postTime}}</small></p>
           </div>
-          <p class="mb-0"><small>{{body}}</small></p>
+          <p class="mb-0">{{#if isBlocked}}<small class="text-muted">[Bình luận này đã bị chặn]</small>{{else}}<small>{{body}}</small>{{/if}}</p>
         </div>
         {{else}}
         <div class="mb-3">

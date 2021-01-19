@@ -52,6 +52,43 @@
         <button type="submit" class="btn btn-dark w-100 mt-4">Đăng</button>
       </form>
     </div>
+    {{#unless is_new}}
+    <form action="/mod/comment" method="post" id="formToggle">
+      <input type="hidden" id="txtReactionBlock" name="reactionID">
+    </form>
+    <section id="comments" class="mt-2">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Bình luận</h4>
+          {{!-- Each comment --}}
+          {{#each reactions}}
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-start">
+              {{#if isBlocked}}
+              <button type="button" class="btn btn-secondary mr-2" title="Hủy chặn" onclick="toggleBlocked('{{_id}}')"><i class="fa fa-toggle-off" aria-hidden="true"></i></button>
+              {{else}}
+              <button type="button" class="btn btn-danger mr-2" title="Chặn bình luận" onclick="toggleBlocked('{{_id}}')"><i class="fa fa-toggle-on" aria-hidden="true"></i></button>
+              {{/if}}
+              <div>
+                {{#if isBlocked}}<small class="text-muted">[Bình luận này đã bị chặn]</small>{{/if}}
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class="mb-0"><a href="/u/{{author._id}}" class="text-dark"><b>{{author.FullName}}</b></a><small class="ml-1">{{postTime}}</small></p>
+                </div>
+                <p class="mb-0"><small>{{body}}</small></p>
+              </div>
+            </div>
+            
+          </div>
+          {{else}}
+          <div class="mb-3">
+            <p class="mb-0 text-muted text-center">Chưa có bình luận</p>
+          </div>
+          {{/each}}      
+
+        </div>
+      </div>
+    </section>
+    {{/unless}}
   </div>
 
   {{#if admin}}
@@ -112,6 +149,14 @@ $('#imgTitle').fileinput({
   allowedFileExtensions: ['jpg'],
 });
 </script>
+{{#unless is_new}}
+<script>
+function toggleBlocked(commentID) {
+  $('#txtReactionBlock').val(commentID);
+  $('#formToggle').submit();
+}
+</script>
+{{/unless}}
 <script>
   $('select[name="typeID"]').change(function(){
     //val() returns string :(

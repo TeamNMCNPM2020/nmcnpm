@@ -49,7 +49,8 @@ module.exports = {
         'author': {
           '_id': '$author._id',
           'FullName': '$author.FullName'
-        }
+        },
+        'isBlocked': '$isBlocked'
       }}
     ]);
 
@@ -61,4 +62,19 @@ module.exports = {
 
     return result;
   },
+  toggleBlock: async function(reactionID) {
+    const reaction = await Reaction.findOne({_id: reactionID});
+
+    let newBlocked = !reaction.isBlocked;
+    const result = await Reaction.updateOne({
+      _id: reactionID
+    }, {
+      $set: { isBlocked: newBlocked}
+    });
+
+    if (result.ok === 1) {
+      return true;
+    }
+    return false;
+  }
 }

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const serviceContent = require('../../models/model_service/singlecontent_service');
 const serviceTopic = require('../../models/model_service/singletopic_service');
+const serviceReaction = require('../../models/model_service/reaction_service');
 
 router.get('/', async function(req, res) {
   //type : loại news/ diễn đàn/ cơ hội
@@ -71,6 +72,7 @@ router.post('/new', async function(req, res) {
 router.get('/edit/:id', async function(req, res) {
   const contentID = req.params.id;
   const resultContent = await serviceContent.singleByID(contentID);
+  const resultListReaction = await serviceReaction.listReaction(contentID);
   const resultTopic = await serviceTopic.list();
 
   resultTopic.map(topic => {  
@@ -84,6 +86,7 @@ router.get('/edit/:id', async function(req, res) {
   res.render('mod_content_management', {
     layout: 'special_user_layout.hbs',
     content: resultContent,
+    reactions: resultListReaction,
     topics: resultTopic,
   });
 });
@@ -98,6 +101,13 @@ router.post('/edit/:id', async function(req, res) {
 
   res.redirect(req.headers.referer);
 });
+
+router.post('/comment', async function(req, res) {
+  let reactionID = req.body.reactionID;
+  const result = await serviceReaction.toggleBlock(reactionID);
+
+  res.redirect(req.headers.referer);
+})
 
 
 
