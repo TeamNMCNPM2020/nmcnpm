@@ -11,6 +11,7 @@ const reactionSchema = mongoose.Schema({
   },
   body: String,
   postTime: String,
+  isBlocked: Boolean, //Is mod blocked this comments?
   author: {
     type: mongoose.Types.ObjectId,
     ref: 'users'
