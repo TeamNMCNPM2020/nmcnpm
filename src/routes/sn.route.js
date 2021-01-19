@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const serviceUser = require('../models/model_service/user_service');
+const serviceReaction = require('../models/model_service/reaction_service');
 const bcrypt = require('bcrypt');
 
 //TODO: multiple account
@@ -77,6 +78,7 @@ router.get('/:id', async function(req, res){
   const UID = req.params.id;
   let enableEdit = false;
   const result = await serviceUser.singleByID(UID);
+  const resultListReaction = await serviceReaction.listReaction(UID, 1);
 
   if (result === null) {
     return res.render('error', {
@@ -94,8 +96,23 @@ router.get('/:id', async function(req, res){
 
   res.render('profile', {
     account: result,
+    reactions: resultListReaction,
     enableEdit
   });
 });
+
+//User comment profile
+router.post('/:id', async function (req, res) {
+  const profileID = req.params.id;
+  const reaction = {
+    profileID,
+    author: req.body.author,
+    body: req.body.body
+  }
+  
+  const result = await serviceReaction.add(reaction);
+
+  res.redirect(`/u/${profileID}`);
+})
 
 module.exports = router

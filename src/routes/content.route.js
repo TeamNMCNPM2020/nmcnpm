@@ -1,11 +1,13 @@
 const router = require('express').Router();
 const serviceContent = require('../models/model_service/singlecontent_service');
 const serviceTopic = require('../models/model_service/singletopic_service');
+const serviceReaction = require('../models/model_service/reaction_service');
 
 router.get('/:id', async function (req, res) {
   const contentID = req.params.id
 
   const result = await serviceContent.singleByID(contentID);
+  const resultListReaction = await serviceReaction.listReaction(contentID);
 
   if (result === null) {
     return res.render('error', {
@@ -17,11 +19,27 @@ router.get('/:id', async function (req, res) {
     })
   }
 
+  console.log(resultListReaction);
   res.render('content', {
     content: result,
+    reactions: resultListReaction,
     isAuthor: (result.author._id.toString() == req.session.authUser._id)
   });
 });
+
+//User comment bài viết
+router.post('/:id', async function (req, res) {
+  const contentID = req.params.id;
+  const reaction = {
+    contentID,
+    author: req.body.author,
+    body: req.body.body
+  }
+  
+  const result = await serviceReaction.add(reaction);
+
+  res.redirect(`/c/${contentID}`);
+})
 
 router.get('/:id/edit', async function (req, res) {
   const contentID = req.params.id;

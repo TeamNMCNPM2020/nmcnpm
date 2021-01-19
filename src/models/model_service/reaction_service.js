@@ -1,21 +1,36 @@
 const Reaction = require('../reaction');
+const User = require('../user');
+const mongoose = require('mongoose');
 const datetime = require('../../utils/datetime');
 
 module.exports = {
   add: async function(entity) {
-    let content = {
+    console.log(entity);
+    let reaction = {
       body: entity.body,
       postTime: datetime.ISODateNow(),
-      contentID: null,
-      profileID: null,
-      author: null
+      contentID: (entity.contentID)? mongoose.Types.ObjectId(entity.contentID):null,
+      profileID: (entity.profileID)? mongoose.Types.ObjectId(entity.profileID):null,
+      author: entity.author
+    }
+    console.log(reaction);
+
+    return await new Reaction(reaction).save();
+  },
+  listReaction: async function(id, isProfileID = 0) {
+    let filterObj = {};
+
+    if (isProfileID === 0) {
+      filterObj.contentID = mongoose.Types.ObjectId(id);
+    }
+    else {
+      filterObj.profileID = mongoose.Types.ObjectId(id);
     }
 
-    return await new Reaction(content).save();
-  },
-  listReaction: async function(profileOrContentIDOBj) {
+    console.log(filterObj);
+
     const result = await Reaction.aggregate([
-      { $match: profileOrContentIDOBj },
+      { $match: filterObj },
       { $sort: {
           'postTime': -1
         }
@@ -27,7 +42,15 @@ module.exports = {
           as: 'author'
         }
       },
-      { $unwind: {path: '$author', preserveNullAndEmptyArrays: true}},      
+      { $unwind: {path: '$author', preserveNullAndEmptyArrays: true}},
+      { $project: {
+        'body': '$body',
+        'postTime': '$postTime',
+        'author': {
+          '_id': '$author._id',
+          'FullName': '$author.FullName'
+        }
+      }}
     ]);
 
     //Convert ISO string to usable format

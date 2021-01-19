@@ -73,7 +73,8 @@
       <div class="card">
         <div class="card-body p-3">
           <form id="formComment" action="" method="post">
-            <textarea name="comment" style="resize: none;" rows="1" class="form-control" type="text" placeholder="Bình luận" required></textarea>
+            <input type="hidden" name="author" value="{{authUser._id}}">
+            <textarea name="body" style="resize: none;" rows="1" class="form-control" type="text" placeholder="Bình luận" required></textarea>
             <div class="mt-1 d-flex justify-content-end">
               <button class="btn btn-dark" type="submit">Submit</button>
             </div>
@@ -85,12 +86,18 @@
           <div class="card-body">
 
             {{!-- Each comment --}}
+            {{#each reactions}}
             <div class="mb-3">
               <div class="d-flex align-items-center justify-content-between">
-                <p class="mb-0"><a href="/u/" class="text-dark"><b>Người đăng</b></a><small class="ml-1">09/09/2020 12:00PM</small></p>
+                <p class="mb-0"><a href="/u/{{author._id}}" class="text-dark"><b>{{author.FullName}}</b></a><small class="ml-1">{{postTime}}</small></p>
               </div>
-              <p class="mb-0"><small>Lorem islum Lorem islum Lorem islum Lorem islum Lorem islum</small></p>
-            </div>         
+              <p class="mb-0"><small>{{body}}</small></p>
+            </div>
+            {{else}}
+            <div class="mb-3">
+              <p class="mb-0 text-muted text-center">Chưa có bình luận</p>
+            </div>
+            {{/each}}           
 
           </div>
         </div>
