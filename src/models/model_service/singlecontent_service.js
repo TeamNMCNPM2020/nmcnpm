@@ -1,5 +1,6 @@
 const SingleContent = require('../singlecontent');
 const SingleTopic = require('../singletopic');
+const User = require('../user');
 const mongoose = require('mongoose');
 const datetime = require('../../utils/datetime');
 
@@ -56,13 +57,25 @@ module.exports = {
           as: 'topic'
         }
       },
+      { $lookup: {
+          from: User.collection.collectionName,
+          localField: 'author',
+          foreignField: '_id',
+          as: 'author'
+        }
+      },
       { $unwind: {path: '$topic', preserveNullAndEmptyArrays: true}},
+      { $unwind: {path: '$author', preserveNullAndEmptyArrays: true}},
       { $project: {
         '_id': '$_id',
         'title': '$title',
         'postTime': '$postTime',
         'topicID': '$topicID',
-        'topicName': '$topic.topicName'
+        'topicName': '$topic.topicName',
+        'author': {
+          '_id': '$author._id',
+          'FullName': '$author.FullName'
+        }
       }},
       
     ]);
@@ -94,7 +107,15 @@ module.exports = {
         as: 'topic'
         }
       },
+      { $lookup: {
+          from: User.collection.collectionName,
+          localField: 'author',
+          foreignField: '_id',
+          as: 'author'
+        }
+      },
       { $unwind: {path: '$topic', preserveNullAndEmptyArrays: true}},
+      { $unwind: {path: '$author', preserveNullAndEmptyArrays: true}},
       { $project: {
         '_id': '$_id',
         'title': '$title',
@@ -102,7 +123,11 @@ module.exports = {
         'body': '$body',
         'topicID': '$topicID',
         'topicName': '$topic.topicName',
-        'typeID': '$typeID'
+        'typeID': '$typeID',
+        'author': {
+            '_id': '$author._id',
+            'FullName': '$author.FullName'
+          }
         }
       }
     ]);

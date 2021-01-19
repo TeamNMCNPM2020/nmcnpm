@@ -22,7 +22,8 @@ router.get('/:id', async function (req, res) {
   }
 
   res.render('content', {
-    content: result
+    content: result,
+    isAuthor: (result.author._id.toString() == req.session.authUser._id)
   });
 });
 
@@ -32,6 +33,11 @@ router.get('/:id/edit', async function (req, res) {
   const resultContent = await serviceContent.singleByID(contentID);
   const resultTopic = await serviceTopic.list();
 
+  //Kiểm tra author bài viết với đang người truy cập có là 1 không
+  if (resultContent.author._id.toString() !== req.session.authUser._id) {
+    return res.redirect(`/c/${contentID}`);
+  };
+
   resultTopic.map(topic => {  
     if (resultContent.topicID) {//block null
       topic.selected = resultContent.topicID.toString() == topic._id.toString();
@@ -39,8 +45,6 @@ router.get('/:id/edit', async function (req, res) {
     
     return topic;
   });
-
-  //TODO: Kiểm tra author bài viết với đang người truy cập có là 1 không
 
   if (resultContent === null) {
     return res.render('error', {

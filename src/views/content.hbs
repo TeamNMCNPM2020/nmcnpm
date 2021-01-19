@@ -20,10 +20,10 @@
       </div>
       <h3><b>{{content.title}}</b></h3>
       <div class="d-flex justify-content-between">
-        <p class="mb-0"><a href="/" class="text-dark"><b>Nguyễn Văn A</b></a></p>
-        {{!-- {{#if isAuthor}} --}}
+        <p class="mb-0"><a href="/u/{{content.author._id}}" class="text-dark"><b>{{content.author.FullName}}</b></a></p>
+        {{#if isAuthor}}
         <small><a href="/c/{{content._id}}/edit"><b>Chỉnh sửa</b></a></small>
-        {{!-- {{/if}} --}}
+        {{/if}}
       </div>
     </section>
     <section id="content-body" class="mt-2">
