@@ -11,7 +11,7 @@ router.get('/', async function(req, res) {
 
   res.render('admin_main', {
     layout: 'special_user_layout.hbs',
-    admin,
+    account_active: true,
     accounts: resultUsers
   });
 });

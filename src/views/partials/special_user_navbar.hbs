@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background: white;">
-  <a class="navbar-brand" href="">{{#if admin}}Admin{{else}}Moderator{{/if}}</a>
+  <a class="navbar-brand" href="{{#if (equals authUser.Permission 4)}}/admin{{else}}/mod{{/if}}">{{#if (equals authUser.Permission 4)}}Admin{{else}}Moderator{{/if}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -16,20 +16,20 @@
         <a class="nav-link {{#if oppor_active}}active{{/if}}" href="/mod?type=2">Cơ hội</a>
       </li>
       {{!-- Nếu user session là admin thì sẽ bật cái flag admin --}}
-      {{#if admin}}
+      {{#if (equals authUser.Permission 4)}}
       <li class="nav-item">
-        <a class="nav-link {{#if oppor_active}}active{{/if}}" href="/admin">Tài khoản</a>
+        <a class="nav-link {{#if account_active}}active{{/if}}" href="/admin">Tài khoản</a>
       </li>
       {{/if}}
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item dropdown ml-auto">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          user
+          {{authUser.FullName}}
         </a>
         <div class="dropdown-menu dropdown-menu-right p-1" aria-labelledby="navbarDropdown">
-          <a role="button" class="btn btn-dark w-100 font-weight-bold active" href="/u/">Profile</a>
-          <a class="dropdown-item text-center" href="#">Đăng xuất</a>
+          <a role="button" class="btn btn-dark w-100 font-weight-bold active" href="/u/{{authUser._id}}">Profile</a>
+          <a class="dropdown-item text-center" href="/logout">Đăng xuất</a>
         </div>
       </li>
     </ul>

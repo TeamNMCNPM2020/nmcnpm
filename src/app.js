@@ -12,6 +12,8 @@ require('express-async-errors');    //Async error handling
 const app = express();
 
 require('./setup/viewengine_setup')(app);
+require('./setup/session_setup')(app);  //Setup express session, MUST BE BEFORE using session related vars
+require('./setup/locals_setup')(app); //Locals vars for authentication
 
 //For using POST method
 app.use(express.urlencoded({

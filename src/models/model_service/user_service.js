@@ -55,7 +55,11 @@ module.exports = {
       }},
     ]);
 
-    return result
+    if (result.length > 0) {
+      return result[0];
+    }
+
+    return null;
   },
   singleByID: async function(uid) {
     const result = await User.aggregate([

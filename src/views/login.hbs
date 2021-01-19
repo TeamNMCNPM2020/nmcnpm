@@ -12,15 +12,14 @@
   <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center min-vh-100">
       <div class="col-lg-6">
-        {{!-- {{#if err_message}} --}}
+        {{#if message}}
         <div class="alert alert-warning alert-dismissible mb-0 fade show" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          Test
-          {{err_message}}
+          {{message}}
         </div>
-        {{!-- {{/if}} --}}
+        {{/if}}
         <div class="card px-1 py-2">
           <div class="card-body">
             
