@@ -43,8 +43,10 @@ $('#formReset').on('submit', function(e) {
           <input type="hidden" name="_id" value="{{account._id}}" required>
           <div class="form-group">
             <label for="txtName"><b>Họ tên</b></label>
-            <input type="text" class="form-control" id="txtName" name="Name" placeholder="Họ tên" value="{{account.Name}}">
+            <input type="text" class="form-control" id="txtName" name="FullName" placeholder="Họ tên" value="{{account.FullName}}">
           </div>
+
+          {{!-- Not yet implemented
           <div class="form-group">
             <label for="txtContact"><b>Liên lạc</b></label>
             <input type="text" class="form-control" id="txtContact" name="Contact" placeholder="Liên lạc" value="{{account.Name}}">
@@ -52,25 +54,31 @@ $('#formReset').on('submit', function(e) {
           <div class="form-group">
             <label for="DOB"><b>Ngày sinh</b></label>
             <input type="date" class="form-control" id="DOB" name="DOB" placeholder="Ngày sinh" value="{{account.Name}}">
-          </div>
+          </div> --}}
+
         </div>
         <div class="card-body col-md-4">
+          {{!-- Sorry, not today
           <div class="form-group">
             <label for="txtAbout"><b>Một số câu về bản thân</b></label>
             <textarea id="txtAbout" name="about" class="form-control" style="resize: none;"></textarea>
-          </div>
+          </div> --}}
           
-          <button type="submit" class="btn btn-outline-success w-100 mt-2">
+          {{!-- <button type="submit" class="btn btn-outline-success w-100 mt-2">
             <i class="fa fa-check" aria-hidden="true"></i>
             Cập nhật
-          </button>
+          </button> --}}
         </div>
+        <button type="submit" class="btn btn-outline-success w-100 mt-2 m-2">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Cập nhật
+        </button>
       </form>
     </div>
 
     <div class="col-md-6 mt-2">
       <div class="row" style="background: white;">
-        <form id="formReset" method="POST" action="/account/reset" class="col-md-12">
+        <form id="formReset" method="POST" action="/u/reset" class="col-md-12">
           <div class="card-body">
             <h5 class="card-title">Đổi mật khẩu</h5>
             <input type="hidden" name="_id" value="{{account._id}}" required>

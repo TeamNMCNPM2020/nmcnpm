@@ -4,21 +4,31 @@
 {{#section 'css'}}
 <style>
   {{!-- TODO: Select base on user type --}}
+{{#if (equals account.Permission 4)}}
 .cover-background{
   background: linear-gradient(90deg,white, white, #F41B35);
 }
+{{/if}}
+{{#if (equals account.Permission 3)}}
 .cover-background{
   background: linear-gradient(90deg,white, white, #FFBE00);
 }
-.cover-background{
-  background: linear-gradient(90deg,white, white, #00A94E);
-}
+{{/if}}
+{{#if (equals account.Permission 2)}}
 .cover-background{
   background: linear-gradient(90deg,white, white, #00A5BA);
 }
+{{/if}}
+{{#if (equals account.Permission 1)}}
 .cover-background{
   background: linear-gradient(90deg,white, white, #007DFF);
 }
+{{/if}}
+{{#if (equals account.Permission 0)}}
+.cover-background{
+  background: linear-gradient(90deg,white, white, #00A94E);
+}
+{{/if}}
 
 </style>
 {{/section}}
@@ -26,25 +36,29 @@
 {{!-- Cover --}}
 <div class="container-fluid p-3 mt-4 d-flex cover-background" style="min-height: 25vh;">
   <div class="d-flex flex-column justify-content-end">
-    <h3 id="name" class="mb-0"><b>Nguyễn Văn A</b></h3>
-    <small id="username">username</small>
+    <h3 id="name" class="mb-0"><b>{{account.FullName}}</b></h3>
+    <small id="username">{{account.Username}}</small>
     <p id="role-badge" class="mt-3 mb-0">
       {{!-- TODO: Select base on user type --}}
-      <span class="badge badge-danger py-2 px-4">Admin</span>
-      <span class="badge badge-warning text-light py-2 px-4">Moderator</span>
-      <span class="badge badge-success py-2 px-4">Sinh viên</span>
-      <span class="badge badge-info py-2 px-4">Nhà tuyển dụng</span>
-      <span class="badge badge-primary py-2 px-4">Giới hàn lâm</span>
+      {{#if (equals account.Permission 0)}}<span class="badge badge-success py-2 px-4">Sinh viên</span>{{/if}}
+      {{#if (equals account.Permission 1)}}<span class="badge badge-primary py-2 px-4">Giới hàn lâm</span>{{/if}}
+      {{#if (equals account.Permission 2)}}<span class="badge badge-info py-2 px-4">Nhà tuyển dụng</span>{{/if}}
+      {{#if (equals account.Permission 3)}}<span class="badge badge-warning text-light py-2 px-4">Moderator</span>{{/if}}
+      {{#if (equals account.Permission 4)}}<span class="badge badge-danger py-2 px-4">Admin</span>{{/if}}
     </p>
   </div>
   <div class="ml-auto d-flex flex-column justify-content-start">
-    <a name="" id="" class="btn btn-light" href="/u/edit" role="button">
+    {{#if enableEdit}}
+    <a class="btn btn-light" href="/u/edit" role="button">
       <i class="fa fa-pencil" aria-hidden="true"></i>
     </a>
+    {{/if}}
   </div>
 </div>
 <div class="container-fluid mt-3">
   <div class="row">
+    
+    {{!-- Not yet, not today: TODO
     <div class="col-md-3 px-1 mb-2 order-md-12">
       <div id="about-me" class="card">
         <section class="card-body">
@@ -54,7 +68,7 @@
           <p class="mt-1 mb-0"><small>Lorem isplum Lorem islum Lorem islum Lorem islum</small></p>
         </section>
       </div>
-    </div>
+    </div> --}}
     <div class="col-md-9 px-0 order-md-1">
       <div class="card">
         <div class="card-body p-3">

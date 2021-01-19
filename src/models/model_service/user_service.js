@@ -61,7 +61,32 @@ module.exports = {
 
     return null;
   },
+  singleByIDAll: async function(uid) {
+    if (
+      !mongoose.Types.ObjectId.isValid(uid)
+      || uid !== String(new mongoose.Types.ObjectId(uid))
+    ) {//Filter non valid ids
+      return null;
+    }
+    const result = await User.aggregate([
+      { $match: {
+        '_id': mongoose.Types.ObjectId(uid)
+      }},
+    ]);
+
+    if (result.length > 0) {
+      return result[0];
+    }
+
+    return null;
+  },
   singleByID: async function(uid) {
+    if (
+      !mongoose.Types.ObjectId.isValid(uid)
+      || uid !== String(new mongoose.Types.ObjectId(uid))
+    ) {//Filter non valid ids
+      return null;
+    }
     const result = await User.aggregate([
       { $match: {
         '_id': mongoose.Types.ObjectId(uid)
