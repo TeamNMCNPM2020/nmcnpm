@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
   },
   FullName: String,
   HashPassword: String,
-  Permission: Number,
+  Permission: Number, //0-Student, 1-Scientist, 2-Recruitment, 3-Mod, 4-Admin
 });
 
 const user = mongoose.model('users',userSchema)

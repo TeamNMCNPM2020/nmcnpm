@@ -27,17 +27,18 @@
           </tr>
         </thead>
         <tbody>
-          {{!-- {{#each accounts}} --}}
+          {{#each accounts}}
           <tr>
-            <td>{{#if IsDisabled}}<span class="badge badge-pill badge-secondary">Disabled</span>{{/if}}{{username}}</td>
-            <td>{{Name}}</td>
+            {{!-- Admin disable account --}}
+            <td>{{#if IsDisabled}}<span class="badge badge-pill badge-secondary">Disabled</span>{{/if}}{{Username}}</td>
+            <td>{{FullName}}</td>
             <td>
               {{!-- Loại người dùng tương ứng --}}
-              <span class="badge badge-pill badge-success">Sinh viên</span>
-              <span class="badge badge-pill badge-warning">Mod</span>
-              <span class="badge badge-pill badge-danger">Admin</span>
-              <span class="badge badge-pill badge-primary">Giới hàn lâm</span>
-              <span class="badge badge-pill badge-info">Tuyển dụng</span>
+              {{#if (equals Permission 0)}}<span class="badge badge-pill badge-success">Sinh viên</span>{{/if}}
+              {{#if (equals Permission 3)}}<span class="badge badge-pill badge-warning">Mod</span>{{/if}}
+              {{#if (equals Permission 4)}}<span class="badge badge-pill badge-danger">Admin</span>{{/if}}
+              {{#if (equals Permission 1)}}<span class="badge badge-pill badge-primary">Giới hàn lâm</span>{{/if}}
+              {{#if (equals Permission 2)}}<span class="badge badge-pill badge-info">Tuyển dụng</span>{{/if}}
             </td>
             <td>
               {{!-- Chuyễn sang trang chỉnh sửa tương ứng --}}
@@ -46,13 +47,13 @@
               </a>
             </td>
           </tr>
-          {{!-- {{else}}
+          {{else}}
           <tr class="bg-light">
             <td colspan="4" class="text-center">
               Không có dữ liệu
             </td>
           </tr>
-          {{/each}} --}}
+          {{/each}}
         </tbody>
       </table>
     </div>

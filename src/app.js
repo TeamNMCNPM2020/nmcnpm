@@ -21,7 +21,8 @@ app.use(express.urlencoded({
 //Connect to DB
 mongoose.connect(keys.mongodb.dbURI, { 
   useNewUrlParser: true, 
-  useUnifiedTopology: true 
+  useUnifiedTopology: true,
+  useCreateIndex: true
 }, function(err) {
   if (err) {
     console.log('Unable to connect to db');

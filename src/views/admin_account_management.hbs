@@ -4,6 +4,20 @@
 {{#section 'js'}}
 <script>
 {{!-- Form validation --}}
+{{#if is_new}}
+$('#formEdit').on('submit', function(e) {
+  e.preventDefault();
+
+  const txtPassword = $('#txtPassword').val();
+  const txtConfirm = $('#txtPasswordConfirm').val();
+  if (txtPassword !== txtConfirm) {
+    alert('Password does not match');
+  }
+  else {
+    $('#formEdit').off('submit').submit();
+  }
+});
+{{else}}
 $('#formReset').on('submit', function(e) {
   e.preventDefault();
 
@@ -16,6 +30,7 @@ $('#formReset').on('submit', function(e) {
     $('#formReset').off('submit').submit();
   }
 });
+{{/if}}
 </script>
 {{/section}}
 
@@ -44,11 +59,11 @@ $('#formReset').on('submit', function(e) {
           {{/unless}}
           <div class="form-group">
             <label for="txtUserName"><b>Tên đăng nhập</b></label>
-            <input type="text" class="form-control" id="txtUserName" name="username" placeholder="Tên đăng nhập" value="{{account.UserName}}" required>
+            <input type="text" class="form-control" id="txtUserName" name="Username" placeholder="Tên đăng nhập" value="{{account.Username}}" required>
           </div>
           <div class="form-group">
             <label for="txtName"><b>Họ tên</b></label>
-            <input type="text" class="form-control" id="txtName" name="Name" placeholder="Họ tên" value="{{account.Name}}" required>
+            <input type="text" class="form-control" id="txtName" name="FullName" placeholder="Họ tên" value="{{account.FullName}}" required>
           </div>
 
           {{#if is_new}}
@@ -62,7 +77,7 @@ $('#formReset').on('submit', function(e) {
           </div>
           {{/if}}
 
-
+{{!-- Not yet, not today
           <div class="form-group">
             <label for="txtContact"><b>Liên lạc</b></label>
             <input type="text" class="form-control" id="txtContact" name="Contact" placeholder="Liên lạc" value="{{account.Contact}}">
@@ -70,7 +85,7 @@ $('#formReset').on('submit', function(e) {
           <div class="form-group">
             <label for="DOB"><b>Ngày sinh</b></label>
             <input type="date" class="form-control" id="DOB" name="DOB" placeholder="Ngày sinh" value="{{account.DOB}}">
-          </div>
+          </div> --}}
         </div>
         <div class="card-body col-md-4">
           <div class="card bg-primary text-light">
@@ -78,11 +93,11 @@ $('#formReset').on('submit', function(e) {
               <div class="form-group">
                 <label for="Permission" class="font-weight-bold">Loại người dùng</label>
                 <select class="form-control" id="Permission" name="Permission" required>  
-                  <option value="0">Admin</option>
-                  <option value="1">Mod</option>
-                  <option value="2">Sinh viên</option>
-                  <option value="3">Nhà tuyển dụng</option>
-                  <option value="4">Giới hàn lâm</option>
+                  <option value="0" {{#if (equals account.Permission 0)}}selected{{/if}}>Sinh viên</option>
+                  <option value="4" {{#if (equals account.Permission 4)}}selected{{/if}}>Admin</option>
+                  <option value="3" {{#if (equals account.Permission 3)}}selected{{/if}}>Mod</option>
+                  <option value="2" {{#if (equals account.Permission 2)}}selected{{/if}}>Nhà tuyển dụng</option>
+                  <option value="1" {{#if (equals account.Permission 1)}}selected{{/if}}>Giới hàn lâm</option>
                 </select>
               </div>
             </div>
@@ -106,16 +121,10 @@ $('#formReset').on('submit', function(e) {
     {{#unless is_new}}
     <div class="col-md-6 mt-2">
       <div class="row" style="background: white;">
-        <form id="formReset" method="POST" action="/admin/reset" class="col-md-12">
+        <form id="formReset" method="POST" action="/admin/reset/{{account._id}}" class="col-md-12">
           <div class="card-body">
             <h5 class="card-title">Đổi mật khẩu</h5>
             <input type="hidden" name="_id" value="{{account._id}}" required>
-            <div class="form-group">
-              <label for="txtOldPassword"><b>Mật khẩu</b></label>
-              <input type="password" class="form-control" id="txtOldPassword" 
-                      name="currentPassword" placeholder="Mật khẩu hiện tại"
-                      required>
-            </div>
             <div class="form-group">
               <label for="txtPassword"><b>Mật khẩu mới</b></label>
               <input type="password" class="form-control" id="txtPassword" 
