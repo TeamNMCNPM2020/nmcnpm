@@ -28,12 +28,12 @@ router.get('/edit', async function(req, res){
 });
 
 router.post('/edit', async function(req, res){
-  console.log(req.body);
+  //console.log(req.body);
   const account = {
     _id: req.body._id,
     FullName: req.body.FullName
   }
-  console.log(account);
+  //console.log(account);
   const result = await serviceUser.patchInfo(account);
   const updated = await serviceUser.singleByID(req.session.authUser._id);
 
@@ -44,19 +44,19 @@ router.post('/edit', async function(req, res){
 });
 
 router.post('/reset', async function(req, res){
-  console.log(req.body);
+  //console.log(req.body);
   const account = {
     _id: req.body._id,
     currentPassword: req.body.currentPassword,
     HashPassword: req.body.Password
   }
-  console.log(account);
+  //console.log(account);
   const result = await serviceUser.singleByIDAll(account._id);
   if (result == null) {
     res.redirect(`/u/`);
     return;
   }
-  console.lo
+  
   const ret = bcrypt.compareSync(account.currentPassword, result.HashPassword);
   if (!ret) {
     res.redirect(`/u/edit?code=2`);

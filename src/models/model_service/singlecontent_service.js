@@ -1,5 +1,6 @@
 const SingleContent = require('../singlecontent');
 const SingleTopic = require('../singletopic');
+const Reaction = require('../reaction');
 const User = require('../user');
 const mongoose = require('mongoose');
 const datetime = require('../../utils/datetime');
@@ -64,6 +65,13 @@ module.exports = {
           as: 'author'
         }
       },
+      { $lookup: {
+          from: Reaction.collection.collectionName,
+          localField: '_id',
+          foreignField: 'contentID',
+          as: 'reactions'
+        }
+      },
       { $unwind: {path: '$topic', preserveNullAndEmptyArrays: true}},
       { $unwind: {path: '$author', preserveNullAndEmptyArrays: true}},
       { $project: {
@@ -75,7 +83,8 @@ module.exports = {
         'author': {
           '_id': '$author._id',
           'FullName': '$author.FullName'
-        }
+        },
+        reactionCount: { $size: '$reactions' }
       }},
       
     ]);

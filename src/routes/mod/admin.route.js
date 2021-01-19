@@ -27,7 +27,7 @@ router.get('/new', function(req, res) {
 
 //Xử lý Đăng bài viết mới
 router.post('/new', async function(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
   const newUser = {
     Username: req.body.Username,
     FullName: req.body.FullName,
@@ -35,7 +35,7 @@ router.post('/new', async function(req, res) {
     HashPassword: bcrypt.hashSync(req.body.Password, 10, null)
   }
 
-  console.log(newUser);
+  //console.log(newUser);
   const result = await User.add(newUser);
 
   if (result._id) {
