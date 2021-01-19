@@ -11,8 +11,8 @@ module.exports = {
       body: entity.body,
       postTime: datetime.ISODateNow(),
       typeID: entity.typeID,
-      topicID: null,
-      author: null
+      topicID: mongoose.Types.ObjectId(entity.topicID),
+      author: mongoose.Types.ObjectId(entity.author)
     }
 
     return await new SingleContent(content).save();

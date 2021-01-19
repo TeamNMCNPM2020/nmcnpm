@@ -2,10 +2,6 @@ const router = require('express').Router();
 const serviceContent = require('../models/model_service/singlecontent_service');
 const serviceTopic = require('../models/model_service/singletopic_service');
 
-router.get('/edit', function (req, res) {
-  res.render('content_edit');
-});
-
 router.get('/:id', async function (req, res) {
   const contentID = req.params.id
 

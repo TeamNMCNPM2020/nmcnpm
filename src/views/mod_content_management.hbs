@@ -4,7 +4,8 @@
 
 {{!-- Giao diện quản lý bài viết & đăng bài viết mới --}}
 <div class="container-fluid min-vh-100">
-  <a class="btn btn-primary mt-2 px-4" href="{{#if (equals content.typeID 0)}}/mod?type=0{{/if}}{{#if (equals content.typeID 1)}}/mod?type=1{{/if}}{{#if (equals content.typeID 2)}}/mod?type=2{{/if}}"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
+  <a class="btn btn-primary mt-2 px-4" 
+    href="{{#if is_new}}/mod{{else}}{{#if (equals content.typeID 0)}}/mod?type=0{{/if}}{{#if (equals content.typeID 1)}}/mod?type=1{{/if}}{{#if (equals content.typeID 2)}}/mod?type=2{{/if}}{{/if}}"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
   <div class="card mt-2">
     <div class="card-body">
       <form id="form" method="POST">

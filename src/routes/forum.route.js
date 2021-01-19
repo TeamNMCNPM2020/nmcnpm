@@ -35,9 +35,10 @@ router.get('/new_content', async function(req, res) {
 });
 
 router.post('/new_content', async function(req, res) {
-  let entity = req.body;
-  entity.typeID = 0;    //Post new content in forum then typeID is type of forum(0)
-  const result = await serviceContent.add(entity);
+  let newContent = req.body;
+  newContent.typeID = 0;    //Post new content in forum then typeID is type of forum(0)
+  newContent.author = req.session.authUser._id;
+  const result = await serviceContent.add(newContent);
 
   res.redirect(`/c/${result._id}`)
 });

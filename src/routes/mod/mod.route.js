@@ -48,7 +48,12 @@ router.get('/new', async function(req, res) {
 
 //Xử lý Đăng bài viết mới
 router.post('/new', async function(req, res) {
-  const result = await serviceContent.add(req.body);
+  let newContent = req.body;
+  newContent.author = req.session.authUser._id;
+  if (newContent.typeID === 2) {
+    newContent.topicID = null;
+  }
+  const result = await serviceContent.add(newContent);
 
   //console.log(result);
 
@@ -85,7 +90,11 @@ router.get('/edit/:id', async function(req, res) {
 
 //Xử lý Chỉnh sửa bài viết
 router.post('/edit/:id', async function(req, res) {
-  const result = await serviceContent.patch(req.body);
+  let newContent = req.body;
+  if (newContent.typeID === 2) {
+    newContent.topicID = null;
+  }
+  const result = await serviceContent.patch(newContent);
 
   res.redirect(req.headers.referer);
 });
