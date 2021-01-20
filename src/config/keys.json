@@ -1,5 +1,5 @@
 {
   "mongodb": {
-    "dbURI": "mongodb://localhost:27017/forum"
+    "dbURI": "mongodb+srv://nmcnpm:doannhom18@cluster0.rf7yf.mongodb.net/fitforum?retryWrites=true&w=majority"
   }
 }

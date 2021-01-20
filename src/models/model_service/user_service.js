@@ -91,12 +91,26 @@ module.exports = {
       { $match: {
         '_id': mongoose.Types.ObjectId(uid)
       }},
+      // { $unwind: "$friends" },
+      // {
+      //   $lookup: {
+      //     from: User.collection.collectionName,
+      //     localField: "friends",
+      //     foreignField: "_id",
+      //     as: "friends_infor"
+      //   }
+      // },
+      // { "$unwind": "$friends_infor" },
       { $project: {
+        // 'friends_infor': "$friends_infor",
+        'friends':  "$friends",
         'Username': '$Username',
         'FullName': '$FullName',
         'Permission': '$Permission'
       }}
     ]);
+
+    // result[0].friends_infor = await User.findOne(mongoose.Types.ObjectId(uid)).populate('friends').lean();
 
     if (result.length > 0) {
       return result[0];

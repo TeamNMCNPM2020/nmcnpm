@@ -6,6 +6,68 @@ const mongoose = require('mongoose');
 const datetime = require('../../utils/datetime');
 
 module.exports = {
+  getfirstcontent: async () =>{
+    const content = await SingleContent.findById('60057efbeb0cd941505f5031').lean();
+    const topic = await SingleTopic.findById(content.topicID).lean();
+    content.countReaction = await Reaction.find({contentID: content._id}).countDocuments().lean();
+    content.topicname = topic.topicName;
+    content.postTime = datetime.FormatDate(content.postTime);
+    return content;
+  },
+  gethlcontent: async () =>{
+    const contents = await SingleContent.aggregate([
+      {$match: {typeID: 1}
+      },
+      {$skip: 4
+      },
+      { $limit: 4 
+      },
+      { $lookup: {
+          from: SingleTopic.collection.collectionName,
+          localField: 'topicID',
+          foreignField: '_id',
+          as: 'topic'
+        }
+      },
+      { $lookup: {
+          from: User.collection.collectionName,
+          localField: 'author',
+          foreignField: '_id',
+          as: 'author'
+        }
+      },
+      { $lookup: {
+          from: Reaction.collection.collectionName,
+          localField: '_id',
+          foreignField: 'contentID',
+          as: 'reactions'
+        }
+      },
+      { $unwind: {path: '$topic', preserveNullAndEmptyArrays: true}},
+      { $unwind: {path: '$author', preserveNullAndEmptyArrays: true}},
+      { $project: {
+        'img': '$img',
+        '_id': '$_id',
+        'title': '$title',
+        'postTime': '$postTime',
+        'topicID': '$topicID',
+        'topicName': '$topic.topicName',
+        'author': {
+          '_id': '$author._id',
+          'FullName': '$author.FullName'
+        },
+        reactionCount: { $size: '$reactions' }
+      }},
+      
+    ]);
+
+    contents.map((content) => {
+      content.postTime = datetime.FormatDate(content.postTime);
+      return content;
+    });
+    console.log(contents);
+    return contents;
+  },
   add: async function(entity) {
     let content = {
       title: entity.title,
@@ -75,6 +137,7 @@ module.exports = {
       { $unwind: {path: '$topic', preserveNullAndEmptyArrays: true}},
       { $unwind: {path: '$author', preserveNullAndEmptyArrays: true}},
       { $project: {
+        'img': '$img',
         '_id': '$_id',
         'title': '$title',
         'postTime': '$postTime',

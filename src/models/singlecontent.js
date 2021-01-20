@@ -6,6 +6,7 @@ const singleContentSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: 'SingleTopic'
   },
+  img : String,
   title: String,
   body: String,
   postTime: String,

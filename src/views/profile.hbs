@@ -103,6 +103,24 @@
         </div>
       </section>
     </div>
+    <div class="col-md-9 px-0 order-md-1">
+        <h4>Bạn bè</h4>
+        <div class = "card">
+          <div class="row">
+            {{#each account.friends}}
+            <div class="col-sm-6"> 
+              <div class="container-fluid p-3 mt-10 d-flex cover-background" style="min-height: 15vh;">
+                <div class="d-flex flex-column justify-content-end" >
+                  <h3 id="name" class="mb-0"><b>{{fullname}}</b></h3>
+                  <small id="username">{{username}}</small>
+                </div>
+                <a href="/u/{{id}}" class="stretched-link"></a>
+              </div>      
+            </div>
+            {{/each}}
+          </div>
+        </div>
+    </div>
     
   </div>
 </div>

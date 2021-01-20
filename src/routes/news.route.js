@@ -6,6 +6,8 @@ router.get('/', async function(req, res) {
   const topic = (req.query.topic) || 0;
   const resultContent = await serviceContent.listContent(1, topic);
   const resultTopic = await serviceTopic.list();
+  const noibat = await serviceContent.getfirstcontent();
+  const hlcontents = await serviceContent.gethlcontent();
 
   if (topic != 0) {
     resultTopic.map(singleTopic => {
@@ -20,6 +22,8 @@ router.get('/', async function(req, res) {
     news_active: true,
     contents: resultContent,
     topics: resultTopic,
+    firsttopic: noibat,
+    hlcontents,
     all: topic == 0,
   });
 });

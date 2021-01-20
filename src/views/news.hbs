@@ -24,143 +24,64 @@
 <div class="my-2 row p-2" style="background: white;">
 
   <div class="col-sm-7 p-1">
+   {{#with firsttopic}}
     <div class="card border-0">
       <div class="card-header p-0">
-        <img class="card-img" src="https://dummyimage.com/600x400/dddddd/000000" alt="Feature content thumbnail 1">
+        <img class="card-img" src="{{img}}" height="400" width="600" alt="Feature content thumbnail 1">
       </div>
       <div class="card-body p-1 d-flex flex-column">
-        <h5 class="card-title mb-1">Tiêu đề nổi bật 1</h5>
+        <h5 class="card-title mb-1">{{title}}</h5>
         <div class="mt-auto d-flex flex-row flex-wrap">
           <small class="mr-1 font-weight-bold">
-            <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
+            <a href="?topic={{topicID}}" style="z-index: 500; position: relative;">{{topicname}}</a>
           </small>
 
           <small class="ml-auto mx-2">
             <i class="fa fa-refresh" aria-hidden="true"></i>
-            dd/mm/yyyy hh:mm
+            {{postTime}}
           </small>
           <small class="mx-1">
             <i class="fa fa-comments" aria-hidden="true"></i>
-            000000
+            {{countReaction}}
           </small>
         </div>
       </div>
-      <a href="#" class="stretched-link"></a>
+      <a href="/c/{{_id}}" class="stretched-link"></a>
     </div>
+    {{/with}}
   </div>
 
   <div class="col-sm-5">
     <div class="row">
-
+      {{#each this.hlcontents}}
       <div class="col-sm-6 p-1">
         <div class="card border-0">
           <div class="card-header p-0">
-            <img class="card-img" src="https://dummyimage.com/210x140/dddddd/000000" alt="Feature content thumbnail 2">
+            <img class="card-img" src="{{img}}" height="140", width="210" alt="Feature content thumbnail 2">
           </div>
           <div class="card-body p-1 d-flex flex-column">
-            <h5 class="card-title mb-1">Tiêu đề nổi bật 2</h5>
+            <h5 class="card-title mb-1">{{title}}</h5>
             <div class="mt-auto">
               <small class="mr-1 font-weight-bold">
-                <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
+                <a href="?topic={{topicID}}" style="z-index: 500; position: relative;">{{topicName}}</a>
               </small>
 
               <div class="d-flex justify-content-around">
                 <small>
                   <i class="fa fa-refresh" aria-hidden="true"></i>
-                  dd/mm/yyyy hh:mm
+                  {{postTime}}
                 </small>
                 <small class="ml-auto">
                   <i class="fa fa-comments" aria-hidden="true"></i>
-                  000000
+                  {{reactionCount}}
                 </small>
               </div>
             </div>
           </div>
-          <a href="#" class="stretched-link"></a>
+          <a href="/c/{{_id}}" class="stretched-link"></a>
         </div>
       </div>
-
-      <div class="col-sm-6 p-1">
-        <div class="card border-0">
-          <div class="card-header p-0">
-            <img class="card-img" src="https://dummyimage.com/210x140/dddddd/000000" alt="Feature content thumbnail 3">
-          </div>
-          <div class="card-body p-1 d-flex flex-column">
-            <h5 class="card-title mb-1">Tiêu đề nổi bật 3</h5>
-            <div class="mt-auto">
-              <small class="mr-1 font-weight-bold">
-                <a href="#" style="z-index: 500; position: relative;">Chủ đề</a>
-              </small>
-
-              <div class="d-flex justify-content-around">
-                <small>
-                  <i class="fa fa-refresh" aria-hidden="true"></i>
-                  dd/mm/yyyy hh:mm
-                </small>
-                <small class="ml-auto">
-                  <i class="fa fa-comments" aria-hidden="true"></i>
-                  000000
-                </small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 p-1">
-        <div class="card border-0">
-          <div class="card-header p-0">
-            <img class="card-img" src="https://dummyimage.com/210x140/dddddd/000000" alt="Feature content thumbnail 2">
-          </div>
-          <div class="card-body p-1 d-flex flex-column">
-            <h5 class="card-title mb-1">Tiêu đề nổi bật 4</h5>
-            <div class="mt-auto">
-              <small class="mr-1 font-weight-bold">
-                <a href="#">Chủ đề</a>
-              </small>
-
-              <div class="d-flex justify-content-around">
-                <small>
-                  <i class="fa fa-refresh" aria-hidden="true"></i>
-                  dd/mm/yyyy hh:mm
-                </small>
-                <small class="ml-auto">
-                  <i class="fa fa-comments" aria-hidden="true"></i>
-                  000000
-                </small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 p-1">
-        <div class="card border-0">
-          <div class="card-header p-0">
-            <img class="card-img" src="https://dummyimage.com/210x140/dddddd/000000" alt="Feature content thumbnail 2">
-          </div>
-          <div class="card-body p-1 d-flex flex-column">
-            <h5 class="card-title mb-1">Tiêu đề nổi bật 5</h5>
-            <div class="mt-auto">
-              <small class="mr-1 font-weight-bold">
-                <a href="#">Chủ đề</a>
-              </small>
-
-              <div class="d-flex justify-content-around">
-                <small>
-                  <i class="fa fa-refresh" aria-hidden="true"></i>
-                  dd/mm/yyyy hh:mm
-                </small>
-                <small class="ml-auto">
-                  <i class="fa fa-comments" aria-hidden="true"></i>
-                  000000
-                </small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      {{/each}}
     </div>
   </div>
 
@@ -184,7 +105,7 @@
     {{#each contents}}
     <div class="card flex-row border-0 m-2">
       <div class="card-header p-0">
-        <img class="img-fluid" src="https://dummyimage.com/210x140/dddddd/000000" style="object-fit: cover;" alt="">
+        <img class="img-fluid" src="{{img}}" height="140" width="210" style="object-fit: cover;" alt="">
       </div>
       <div class="card-body ml-2 p-1 d-flex flex-column">
         <h5 class="card-title mb-1">{{title}}</h5>
