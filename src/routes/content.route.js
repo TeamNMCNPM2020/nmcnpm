@@ -2,6 +2,7 @@ const router = require('express').Router();
 const serviceContent = require('../models/model_service/singlecontent_service');
 const serviceTopic = require('../models/model_service/singletopic_service');
 const serviceReaction = require('../models/model_service/reaction_service');
+const serviceUser = require('../models/model_service/user_service');
 
 router.get('/:id', async function (req, res) {
   const contentID = req.params.id

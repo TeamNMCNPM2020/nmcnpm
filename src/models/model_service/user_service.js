@@ -2,6 +2,13 @@ const User = require('../user');
 const mongoose = require('mongoose');
 
 module.exports = {
+  listSearch: async (search) =>{
+      const result = await User.find({
+        FullName: new RegExp(search, "i")
+      }).lean();
+      console.log(result);
+      return result;
+  },
   add: async function(entity) {
 
     let newUser = {

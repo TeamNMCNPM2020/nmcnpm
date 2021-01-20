@@ -113,6 +113,20 @@ router.post('/:id', async function (req, res) {
   const result = await serviceReaction.add(reaction);
 
   res.redirect(`/u/${profileID}`);
-})
+});
+
+router.get('/:id/search/', async (req,res,next) => {
+
+  searchText = req.query.search != undefined ? req.query.search : "";
+  const  friendsearch = await serviceUser.listSearch(searchText);
+  const UID = req.params.id;
+  let enableEdit = false;
+  const account = await serviceUser.singleByID(UID);
+
+  res.render('search', {
+      friends: friendsearch,
+      account
+  });
+});
 
 module.exports = router

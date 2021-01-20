@@ -9,11 +9,11 @@ module.exports = function(app) {
   app.use('/forum', authMdws.auth, require('../routes/forum.route'));
 
   //Only Admin, mod Permission can access - but for testing purpose, disabled
-  // app.use('/mod', authMdws.filterLowerMod, require('../routes/mod/mod.route'));
-  // app.use('/admin', authMdws.filterNonAdmin, require('../routes/mod/admin.route'));
+  app.use('/mod', authMdws.filterLowerMod, require('../routes/mod/mod.route'));
+  app.use('/admin', authMdws.filterNonAdmin, require('../routes/mod/admin.route'));
 
-  app.use('/mod', require('../routes/mod/mod.route'));
-  app.use('/admin', require('../routes/mod/admin.route'));
+  // app.use('/mod', require('../routes/mod/mod.route'));
+  // app.use('/admin', require('../routes/mod/admin.route'));
 
   app.use('/c', authMdws.auth, require('../routes/content.route'));
   app.use('/u', authMdws.auth, require('../routes/sn.route'));
