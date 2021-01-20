@@ -77,6 +77,7 @@ router.post('/reset', async function(req, res){
 router.get('/:id', async function(req, res){
   const UID = req.params.id;
   let enableEdit = false;
+  let enableAdmin = false;
   const result = await serviceUser.singleByID(UID);
   const resultListReaction = await serviceReaction.listReaction(UID, 1);
 
@@ -89,6 +90,9 @@ router.get('/:id', async function(req, res){
       }
     })
   }
+  if (result.Permission==4){
+    enableAdmin = true;
+  }
 
   if (result._id.toString() == req.session.authUser._id) {
     enableEdit = true;
@@ -97,7 +101,8 @@ router.get('/:id', async function(req, res){
   res.render('profile', {
     account: result,
     reactions: resultListReaction,
-    enableEdit
+    enableEdit,
+    enableAdmin
   });
 });
 

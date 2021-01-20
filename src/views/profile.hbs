@@ -52,6 +52,13 @@
     <a class="btn btn-light" href="/u/edit" role="button">
       <i class="fa fa-pencil" aria-hidden="true"></i>
     </a>
+    {{/if}}  
+  </div>
+  <div class="ml-1 d-flex flex-column justify-content-start">
+    {{#if enableAdmin}}
+    <a class="btn btn-light" href="/admin" role="button">
+      Admin
+    </a>
     {{/if}}
   </div>
 </div>
